@@ -543,17 +543,9 @@ Co poruszam w kazdym z chapterow
 \end{itemize} 
 
 
-\chapter{[Problem analysis]}
+\chapter{Overview of technologies and terminology}
 
-\section{Introduction}
-
-State of the art (SOTA) to termin u¿ywany w naukach technicznych, aby opisaæ najnowsze i najbardziej zaawansowane osi¹gniêcia w danej dziedzinie. SOTA odnosi siê do stanu wiedzy i technologii, które s¹ obecnie dostêpne i stosowane w dziedzinie badawczej lub in¿ynieryjnej.
-\begin{itemize}
-\item Wady i zalety mikroserwisow 
-\item[!] Trendy w ktualne trendy w projektowaniu i implementacji mikroserwisów, takie jak podejœcie Domain-Driven Design (DDD), architektura mikrous³ugowa (MSA) i konteneryzacja
-\item Komunikacja miedzy mikroserwisam. . W tej sekcji mo¿esz omówiæ ró¿ne narzêdzia i technologie, takie jak Apache Kafka, RabbitMQ, AWS EventBridge i Azure Event Grid, które umo¿liwiaj¹ przesy³anie danych w architekturze event-driven.
-\item Pobieranie danych napywajace z zewnetrznych serwisow - sposob komunikacji . tej sekcji mo¿esz przedstawiæ ró¿ne metody pobierania danych, takie jak protoko³y RESTful, GraphQL, WebSockets i protoko³y strumieniowe. Mo¿esz równie¿ omówiæ zalety i wady ka¿dej z tych metod oraz ich zastosowanie w kontekœcie Twojego projektu
-\end{itemize}
+This chapter will focus on the fundamentals of software architecture based in the history and its evolution, including the comparison between monolith, microservices and software-oriented architecture. The communication problem between microservices and cloud solutions will be also covered. 
 
 
 \subsection{Monolith}
@@ -593,10 +585,24 @@ There
 \item
 implementacje w rzeczywistych projektach - problemy ktore sa napotykane ( przyklad z amazone podczas black friday - wsluchaj sie w podstast) i jak inni juz probowali rozwiazac ten problem
 \end{itemize} 
-\chapter{ttt}
+
+\section{Service-oriented architecture}
+
+\section{SOA vs Microservices}
+\chapter{Problem analysis}
+
+\section{Evolution of software architecture}
+
+The history of microservices can be traced back to the 1990s, when the first ideas and concepts of distributed software architecture emerged. However, the term 'microservices' has only become popular in the last decade, and their development has been linked to advances in technology and changes in approaches to application development.
+
+Early work on microservices focused on finding better ways to create service-based software. One important step was the introduction of Service-Oriented Architecture (SOA) as an approach to creating modular and loosely coupled services.
+Service-Oriented Architecture has made it possible to create applications consisting of independent components that can be easily scaled and developed.
+
+In 2011, the term 'microservices' (Microservices) emerged, which was introduced by Martin Fowler and James Lewis in their article 'Microservices: a definition of this new architectural term'.
 \section{Real-Life Case Analysis } 
-Przyk³ad netflixa jako architektury mikroserwisowej. Równie¿ amazon
-\subsection{Netflix}
+\subsection{Netflix as a microservices pioneer}
+Netflix has played an important role in developing and promoting microservices architecture. Netflix was one of the pioneers in using microservices as the main approach to building its streaming platform.
+
 Netflix has stareted out as a small rental company. They offered an online DVD subscriptions through the Internet. Movies were mailed to the customers in the form of DVD's with prepaid return envelopes. 
 Nowadays Netflix is huge streaming platform which content is producted in-house ( Netflix Orginals) or producted by other companies and Netflix has distribution right to.
 
@@ -605,6 +611,8 @@ The company made the decision to move its IT infrastructure from private data ce
 
 Netflix emerged as one of the first prominent companies to successfully transition from a monolith to a cloud-based microservices architecture. This achievement was recognized in 2015 when it received the JAX Special Jury award. Today, Netflix manages and supports various parts of its platform through over a thousand microservices.
 
+\subsection{Cloud and contenerization}
+{Napisz o koneneryzacji mikroiserwisow w chmurze} 
 \chapter{[Chapter title]}
 
 %\begin{itemize}
@@ -933,7 +941,6 @@ Each table in the document should be referred to at least once (Tab. \ref{tab:re
 \addcontentsline{toc}{chapter}{Bibliography}
 
 \begin{appendices}
-
 % TODO
 \chapter{Technical documentation}
 
@@ -965,6 +972,9 @@ Additional files uploaded to the system include:
 % TODO
 \chapter{Biblography}
 https://dzone.com/articles/adopting-microservices-netflix
+
+Microservices, IoT,
+and Azure
 
 
 
