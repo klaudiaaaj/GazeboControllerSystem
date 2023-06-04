@@ -10,11 +10,14 @@ namespace Publisher.Controllers
     public class CommunicationController : Controller
     {
         public readonly IRabbitMqSender rabbitMqSender;
+        public readonly IKaffkaSender kaffkaSender;
+       
         string _sheetPath = @"C:\Users\klaud\source\repos\Publisher\Publisher\joystick_data.csv";
 
-        public CommunicationController(IRabbitMqSender rabbitMqSender)
+        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender)
         {
             this.rabbitMqSender = rabbitMqSender;
+            this.kaffkaSender = kaffkaSender;
         }
 
         [HttpGet("rabbitMq")]
@@ -22,6 +25,16 @@ namespace Publisher.Controllers
         {
             var data = GetJoysticData();
             rabbitMqSender.Send(data);
+
+            return Task.CompletedTask;
+        }
+
+
+        [HttpGet("kaffka")]
+        public Task SendByKaffka()
+        {
+            var data = GetJoysticData();
+            kaffkaSender.Send(data);
 
             return Task.CompletedTask;
         }
