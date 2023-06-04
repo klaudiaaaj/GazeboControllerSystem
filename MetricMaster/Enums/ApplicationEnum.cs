@@ -4,5 +4,6 @@
     {
         Publisher = 1, 
         SubscriberRabbitMq = 2,
+        PublisherRabbitMq = 3,
     }
 }

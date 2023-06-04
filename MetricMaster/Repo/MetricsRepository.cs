@@ -34,5 +34,38 @@ namespace MetricMaster
 
             }
         }
+
+        public async Task AddMessage(CommunicationType type, DateTime sendTime, Guid id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {"@communication_type_id", (int)type },
+                    {"@send_time", sendTime },
+                    {"@id", id.ToString() },
+                };
+                var parameter = new DynamicParameters(dictionary);
+
+                var sql = $"INSERT INTO [dbo].[Messages]([id] ,[send_time],[communication_type_id]) VALUES(@id, @send_time, @communication_type_id)";
+                var affectedRow = await connection.ExecuteAsync(sql, parameter);
+            }
+        }
+
+        public async Task UpdateMessageWithArrivalTime(DateTime arrivalTime, Guid id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    { "@arrival_time", arrivalTime },
+                    { "@id", id.ToString() },
+                };
+                var parameter = new DynamicParameters(dictionary);
+
+                var sql = $"UPDATE [dbo].[Messages] SET [arrive_time] = @arrival_time WHERE id = @id";
+                await connection.ExecuteAsync(sql, parameter);
+            }
+        }
     }
 }
