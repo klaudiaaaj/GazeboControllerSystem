@@ -1,52 +1,62 @@
 ﻿using Confluent.Kafka;
 using Contracts.Models;
+using Kafka.Public;
+using Kafka.Public.Loggers;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 public class KaffkaSubsriberService : BackgroundService
 {
-    private readonly string bootstrapServers;
-    private readonly string topic;
+    private readonly IConfiguration _configuration;
+    private readonly ClusterClient _clusterClient;
 
-    public KaffkaSubsriberService(string bootstrapServers, string topic)
+    public KaffkaSubsriberService(IConfiguration configuration)
     {
-        this.bootstrapServers = bootstrapServers;
-        this.topic = topic;
+        _configuration = configuration;
+        _clusterClient = new ClusterClient(new Configuration
+        {
+            Seeds = "localhost:9092"
+        }, new ConsoleLogger());
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var config = new ConsumerConfig
-        {
-            BootstrapServers = bootstrapServers,
-            GroupId = "my-consumer-group",
-            AutoOffsetReset = AutoOffsetReset.Earliest
-        };
+        _clusterClient.ConsumeFromLatest("testtopic");
+        _clusterClient.MessageReceived += record =>
+         {
+             var mes = Encoding.UTF8.GetString(record.Value as byte[]);
+             Console.WriteLine($"Odebrano wiadomość z Kafka. Temat: {mes}");
+         };
+        //string bootstrapServers = $"{ _configuration["KaffkaHost"]}:{ _configuration["KaffkaPort"]}";
 
-        using (var consumer = new ConsumerBuilder<Ignore, Joystic>(config).Build())
-        {
-            consumer.Subscribe(topic);
+        //string topic = "testtopic";
+        //var config = new ProducerConfig { BootstrapServers = bootstrapServers };
+        //using (var consumer = new ConsumerBuilder<Ignore, string>(config).Build())
+        //{
+        //    consumer.Subscribe(topic);
 
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                try
-                {
-                    var consumeResult = consumer.Consume(stoppingToken);
-                    Console.WriteLine($"Odebrano wiadomość z Kafka. Temat: {consumeResult.Topic}, Partycja: {consumeResult.Partition}, Offset: {consumeResult.Offset}, Wiadomość: {consumeResult.Message.Value}");
-                }
-                catch (OperationCanceledException)
-                {
-                    // Zakończono oczekiwanie na nową wiadomość
-                }
-                catch (ConsumeException ex)
-                {
-                    Console.WriteLine($"Wystąpił błąd podczas konsumowania wiadomości z Kafka: {ex.Error.Reason}");
-                }
-            }
+        //    while (!stoppingToken.IsCancellationRequested)
+        //    {
+        //        try
+        //        {
+        //            var consumeResult = consumer.Consume(stoppingToken);
+        //            Console.WriteLine($"Odebrano wiadomość z Kafka. Temat: {consumeResult.Topic}, Partycja: {consumeResult.Partition}, Offset: {consumeResult.Offset}, Wiadomość: {consumeResult.Message.Value}");
+        //        }
+        //        catch (OperationCanceledException)
+        //        {
+        //            // Zakończono oczekiwanie na nową wiadomość
+        //        }
+        //        catch (ConsumeException ex)
+        //        {
+        //            Console.WriteLine($"Wystąpił błąd podczas konsumowania wiadomości z Kafka: {ex.Error.Reason}");
+        //        }
+        //    }
 
-            consumer.Close();
-        }
+        //    consumer.Close();
+        //}
+         await Task.CompletedTask;
     }
 }

@@ -5,14 +5,18 @@ namespace Publisher.Services
 {
     public class KaffkaSender : IKaffkaSender
     {
-        public KaffkaSender()
+        private readonly IConfiguration _configuration;
+
+        public KaffkaSender(IConfiguration configuration)
         {
+            _configuration = configuration;
         }
 
         public async Task Send(IList<Joystic> message)
         {
-            string bootstrapServers = "localhost:9092"; // Adres serwera Kafka
-            string topic = "my-topic"; // Nazwa tematu w Kafka
+            string bootstrapServers = $"{ _configuration["KaffkaHost"]}:{ _configuration["KaffkaPort"]}";
+            // Adres serwera Kafka
+            string topic = "testtopic";
             var config = new ProducerConfig { BootstrapServers = bootstrapServers };
             using (var producer = new ProducerBuilder<Null, string>(config).Build())
             {
