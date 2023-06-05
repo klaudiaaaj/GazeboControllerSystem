@@ -5,25 +5,23 @@ namespace Publisher.Services
 {
     public class KaffkaSender : IKaffkaSender
     {
-        private readonly string bootstrapServers;
-        private readonly string topic;
-
-        public KaffkaSender(string bootstrapServers, string topic)
+        public KaffkaSender()
         {
-            this.bootstrapServers = bootstrapServers;
-            this.topic = topic;
         }
+
         public async Task Send(IList<Joystic> message)
         {
+            string bootstrapServers = "localhost:9092"; // Adres serwera Kafka
+            string topic = "my-topic"; // Nazwa tematu w Kafka
             var config = new ProducerConfig { BootstrapServers = bootstrapServers };
-            using (var producer = new ProducerBuilder<Null, Joystic>(config).Build())
+            using (var producer = new ProducerBuilder<Null, string>(config).Build())
             {
                 try
                 {
                     foreach (Joystic joystic in message)
                     {
                         var id = Guid.NewGuid();
-                        var deliveryReport = await producer.ProduceAsync(topic, new Message<Null, Joystic> { Value = joystic });
+                        var deliveryReport = await producer.ProduceAsync(topic, new Message<Null, string> { Value = joystic.axis_1 });
                         Console.WriteLine($"Wiadomość wysłana do Kafka. Temat: {deliveryReport.Topic}, Partycja: {deliveryReport.Partition}, Offset: {deliveryReport.Offset}");
                     }
                 }

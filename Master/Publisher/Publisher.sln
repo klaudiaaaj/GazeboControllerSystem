@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitmqSubscriber", "Rabbi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{66D21F15-3FD8-4917-9FCA-3682A4696290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaffkaSubscriber", "KaffkaSubscriber\KaffkaSubscriber.csproj", "{77275A00-479E-4E3F-B475-87946D658C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KaffkaSubscriber", "KaffkaSubscriber\KaffkaSubscriber.csproj", "{77275A00-479E-4E3F-B475-87946D658C21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

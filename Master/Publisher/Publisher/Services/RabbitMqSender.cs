@@ -18,7 +18,10 @@ namespace Publisher.Services
             InitializeRabbitMQ();
         }
         private void InitializeRabbitMQ()
+
         {
+            var test = _configuration["RabbitMQHost"];
+            var test2 = _configuration["RabbitMQPort"];
             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
 
             using var connection = _connectionFactory.CreateConnection();

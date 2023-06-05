@@ -1,19 +1,16 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
-EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["Publisher/Publisher.csproj", "Publisher/"]
-RUN dotnet restore "Publisher/Publisher.csproj"
-COPY . .
-WORKDIR "/src/Publisher"
-RUN dotnet build "Publisher.csproj" -c Release -o /app/build
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "Publisher.csproj" -c Release -o /app/publish
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build-env /app/out .
+
 ENTRYPOINT ["dotnet", "Publisher.dll"]
+#

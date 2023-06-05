@@ -19,10 +19,12 @@ namespace RabbitmqSubscriber.Services
 
         private void InitializeRabbitMQ()
         {
-             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
+             _connectionFactory = new RabbitMQ.Client.ConnectionFactory
+            {
+                Uri = new Uri("amqp://guest:guest@localhost:15672/")
+            };
 
-            _connection = _connectionFactory.CreateConnection();
-            _channel = _connection.CreateModel();
+          
 
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
