@@ -10,6 +10,7 @@ namespace RabbitmqSubscriber.Services
         private IConnection _connection;
         private IModel _channel;
         private ConnectionFactory _connectionFactory;
+        private string _queueName;
 
         public RabbitMqSubscriberService(IConfiguration configuration)
         {
@@ -19,40 +20,35 @@ namespace RabbitmqSubscriber.Services
 
         private void InitializeRabbitMQ()
         {
-             _connectionFactory = new RabbitMQ.Client.ConnectionFactory
-            {
-                Uri = new Uri("amqp://guest:guest@localhost:15672/")
-            };
+            var ets = _configuration["RabbitMQHost"];
+            var jsj = _configuration["RabbitMQPort"];
+            _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
+            _connection = _connectionFactory.CreateConnection();
+            _channel = _connection.CreateModel();
 
-          
+            _queueName = "joystic-queue";
+            _channel.QueueBind(queue: _queueName, routingKey: "joystic-queue", exchange: "amq.topic");
 
+            Console.WriteLine("--> Listenting on the Message Bus...");
+
+            _connection.ConnectionShutdown += RabbitMQ_ConnectionShitdown;
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var connection = _connectionFactory.CreateConnection();
-            using var channel = connection.CreateModel();
+            stoppingToken.ThrowIfCancellationRequested();
 
-            channel.QueueDeclare(queue: "test-queue",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+            var consumer = new EventingBasicConsumer(_channel);
 
-            var consumer = new AsyncEventingBasicConsumer(channel);
-
-            consumer.Received += async (model, ea) =>
+            consumer.Received += (ModuleHandle, ea) =>
             {
-                // Arrival time 
-                var arrivalTime = DateTime.Now;
-
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
+                var body = ea.Body;
+                var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
+              //  _eventProcessor.ProcessEvent(notificationMessage);
+                Console.WriteLine("--> Event Received!", notificationMessage.ToString());
             };
 
-            channel.BasicConsume(queue: "joystic-queue",
-                                 autoAck: true,
-                                 consumer: consumer);
-            //Add the service
+            _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+
             return Task.CompletedTask;
         }
 
@@ -65,6 +61,10 @@ namespace RabbitmqSubscriber.Services
             }
 
             base.Dispose();
+        }
+        private void RabbitMQ_ConnectionShitdown(object sender, ShutdownEventArgs e)
+        {
+            Console.WriteLine("--> Connection Shutdown");
         }
     }
 }

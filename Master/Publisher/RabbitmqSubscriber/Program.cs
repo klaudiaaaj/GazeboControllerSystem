@@ -3,7 +3,7 @@ using RabbitmqSubscriber.Services;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
-//.Services.AddHostedService<RabbitMqSubscriberService>();
+builder.Services.AddHostedService<RabbitMqSubscriberService>();
 
 var app = builder.Build();
 
