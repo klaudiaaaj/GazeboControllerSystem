@@ -1,12 +1,6 @@
-﻿using Confluent.Kafka;
-using Contracts.Models;
-using Kafka.Public;
+﻿using Kafka.Public;
 using Kafka.Public.Loggers;
-using Microsoft.Extensions.Hosting;
-using System;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 public class KaffkaSubsriberService : BackgroundService
 {

@@ -12,7 +12,7 @@ namespace Publisher.Controllers
         public readonly IRabbitMqSender rabbitMqSender;
         public readonly IKaffkaSender kaffkaSender;
        
-        string _sheetPath = @"C:\Users\klaud\source\repos\Publisher\Publisher\joystick_data.csv";
+        string _sheetPath = @"joystick_data.csv";
 
         public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender)
         {

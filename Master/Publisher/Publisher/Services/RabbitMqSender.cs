@@ -1,6 +1,7 @@
 ﻿using Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
+using RabbitmqSubscriber.Services;
 using System.Text;
 
 namespace Publisher.Services
@@ -8,20 +9,17 @@ namespace Publisher.Services
     public class RabbitMqSender : IRabbitMqSender
     {
         private readonly IConfiguration _configuration;
-        private IConnection _connection;
-        private IModel _channel;
         private ConnectionFactory _connectionFactory;
+        private readonly ILogger<RabbitMqSender> _logger;
 
-        public RabbitMqSender(IConfiguration configuration)
+        public RabbitMqSender(IConfiguration configuration, ILogger<RabbitMqSender> logger)
         {
             _configuration = configuration;
+            _logger = logger;
             InitializeRabbitMQ();
         }
         private void InitializeRabbitMQ()
-
         {
-            var test = _configuration["RabbitMQHost"];
-            var test2 = _configuration["RabbitMQPort"];
             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
 
             using var connection = _connectionFactory.CreateConnection();
@@ -30,30 +28,33 @@ namespace Publisher.Services
           //  _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
           }
 
-        public Task Send(IList<Joystic> message)
+        public async Task Send(IList<Joystic> message)
         {
+            var ros = new RosContractor();
             using var connection = _connectionFactory.CreateConnection();
             using var channel = connection.CreateModel();
-
-            channel.QueueDeclare(queue: "joystic-queue",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
-            foreach (Joystic joystic in message)
+            try
             {
-                var id = Guid.NewGuid();
-                channel.BasicPublish(exchange: "amq.topic",
-                                                routingKey: "joystic-queue",
-                                                basicProperties: null,
-                                                body: Encoding.UTF8.GetBytes(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2, id.ToString())));
+                foreach (Joystic joystic in message)
+                {
+                    var id = Guid.NewGuid();
+                     ros.GazeboContractor(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2));
+                    //channel.BasicPublish(exchange: "amq.topic",
+                    //                                routingKey: "joystic-queue",
+                    //                                basicProperties: null,
+                    //                                body: Encoding.UTF8.GetBytes(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2, id.ToString())));
+
+                }
+
             }
+            catch (Exception ex)
+            {
+               _logger.LogError(ex.Message.ToString()); 
+            }
+         
 
             Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
-
-            return Task.CompletedTask;
 
         }
     }

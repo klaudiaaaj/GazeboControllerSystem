@@ -1,0 +1,34 @@
+version: '3'
+services:
+  subscriber:
+    build:
+      context: .
+      dockerfile: RabbitmqSubscriber/Dockerfile
+    ports:
+      - 8081:80
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+  publisher:
+    build:
+      context: .
+      dockerfile: Publisher/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - rabbitmq
+    networks:
+      - mynetwork
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

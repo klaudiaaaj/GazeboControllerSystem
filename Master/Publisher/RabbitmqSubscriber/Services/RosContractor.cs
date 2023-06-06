@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System.Net.WebSockets;
 using System.Text;
 
-namespace Contracts.Services
+namespace RabbitmqSubscriber.Services
 {
-    public class PythonCaller
+    public class RosContractor
     {
         private const string pathToFunction = "C:/Users/klaud/Desktop/GazeboContractor.py";
         public async Task GazeboContractor(string dataString)
@@ -65,7 +65,7 @@ namespace Contracts.Services
             var scriptSource = engine.CreateScriptSourceFromFile(pathToFunction);
 
             // Set the value of the "data_string" variable in the Python script
-           // scope.SetVariable("data_string", parameters);
+            // scope.SetVariable("data_string", parameters);
 
             try
             {

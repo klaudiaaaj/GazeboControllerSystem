@@ -6,10 +6,12 @@ namespace Publisher.Services
     public class KaffkaSender : IKaffkaSender
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<KaffkaSender> _logger;
 
-        public KaffkaSender(IConfiguration configuration)
+        public KaffkaSender(IConfiguration configuration, ILogger<KaffkaSender> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task Send(IList<Joystic> message)

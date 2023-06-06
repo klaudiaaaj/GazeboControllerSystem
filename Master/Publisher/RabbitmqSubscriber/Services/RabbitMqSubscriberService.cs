@@ -11,17 +11,23 @@ namespace RabbitmqSubscriber.Services
         private IModel _channel;
         private ConnectionFactory _connectionFactory;
         private string _queueName;
+        private readonly ILogger<RabbitMqSubscriberService> _logger;
+        private readonly RosContractor ros;
 
-        public RabbitMqSubscriberService(IConfiguration configuration)
+        public RabbitMqSubscriberService(IConfiguration configuration, ILogger<RabbitMqSubscriberService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
             InitializeRabbitMQ();
+            ros = new RosContractor();
         }
 
         private void InitializeRabbitMQ()
         {
             var ets = _configuration["RabbitMQHost"];
             var jsj = _configuration["RabbitMQPort"];
+            _logger.LogInformation(ets);
+            _logger.LogInformation(jsj);
             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
             _connection = _connectionFactory.CreateConnection();
             _channel = _connection.CreateModel();
@@ -43,8 +49,8 @@ namespace RabbitmqSubscriber.Services
             {
                 var body = ea.Body;
                 var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
-              //  _eventProcessor.ProcessEvent(notificationMessage);
-                Console.WriteLine("--> Event Received!", notificationMessage.ToString());
+                //  _eventProcessor.ProcessEvent(notificationMessage);
+                _logger.LogInformation("--> Event Received!", notificationMessage.ToString());
             };
 
             _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);

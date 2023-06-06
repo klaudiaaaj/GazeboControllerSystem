@@ -3,10 +3,12 @@ using Newtonsoft.Json;
 using System.Net.WebSockets;
 using System.Text;
 
-namespace Contracts.Services
+namespace RabbitmqSubscriber.Services
 {
-    public class PythonCaller
+    public class RosContractor
     {
+        private readonly Uri uri = new Uri("ws://34.125.199.149:9090/");
+
         private const string pathToFunction = "C:/Users/klaud/Desktop/GazeboContractor.py";
         public async Task GazeboContractor(string dataString)
         {
@@ -17,7 +19,6 @@ namespace Contracts.Services
             var button_1 = int.Parse(data[3]);
             var button_2 = int.Parse(data[4]);
 
-            var uri = new Uri("ws://34.125.32.104:9090/");
             using (var client = new ClientWebSocket())
             {
                 await client.ConnectAsync(uri, CancellationToken.None);
@@ -58,14 +59,33 @@ namespace Contracts.Services
                 await client.SendAsync(new ArraySegment<byte>(msgMsgBytes), WebSocketMessageType.Text, true, CancellationToken.None);
             }
         }
-        public async Task CallTheFunctionAsync(string parameters)
+
+        public async Task GetVelocityData(string dataString)
+        {
+            using (var client = new ClientWebSocket())
+            {
+                await client.ConnectAsync(uri, CancellationToken.None);
+
+                // subscribe to topic
+                var subscribeMsg = new
+                {
+                    op = "subscribe",
+                    topic = "husky_velocity_controller/odom",
+                    type = "geometry_msgs/Twist"
+                };
+
+                client.ReceiveAsync
+            }
+        }
+
+            public async Task CallTheFunctionAsync(string parameters)
         {
             var engine = Python.CreateEngine();
             var scope = engine.CreateScope();
             var scriptSource = engine.CreateScriptSourceFromFile(pathToFunction);
 
             // Set the value of the "data_string" variable in the Python script
-           // scope.SetVariable("data_string", parameters);
+            // scope.SetVariable("data_string", parameters);
 
             try
             {
