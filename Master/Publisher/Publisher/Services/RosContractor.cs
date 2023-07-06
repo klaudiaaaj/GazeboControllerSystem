@@ -74,7 +74,7 @@ namespace RabbitmqSubscriber.Services
                     type = "geometry_msgs/Twist"
                 };
 
-                client.ReceiveAsync
+               // client.ReceiveAsync
             }
         }
 

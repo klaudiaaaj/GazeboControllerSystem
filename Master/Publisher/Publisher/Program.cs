@@ -16,6 +16,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IRabbitMqSender, RabbitMqSender>();
 builder.Services.AddScoped<IKaffkaSender, KaffkaSender>();
+builder.Services.AddScoped<IAzureServiceBusSender, AzureServiceBusSender>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

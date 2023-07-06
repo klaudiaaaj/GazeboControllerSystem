@@ -16,7 +16,7 @@ namespace Publisher.Services
         {
             _configuration = configuration;
             _logger = logger;
-            InitializeRabbitMQ();
+         //   InitializeRabbitMQ();
         }
         private void InitializeRabbitMQ()
         {

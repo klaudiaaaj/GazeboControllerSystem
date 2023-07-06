@@ -29,6 +29,9 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true
+    },
+    "Profile 1": {
+      "commandName": "Project"
     }
   }
 }

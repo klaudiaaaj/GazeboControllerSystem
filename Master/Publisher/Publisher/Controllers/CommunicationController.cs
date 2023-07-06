@@ -11,13 +11,15 @@ namespace Publisher.Controllers
     {
         public readonly IRabbitMqSender rabbitMqSender;
         public readonly IKaffkaSender kaffkaSender;
+        public readonly IAzureServiceBusSender azureServiceBusSender;
        
         string _sheetPath = @"joystick_data.csv";
 
-        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender)
+        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender)
         {
             this.rabbitMqSender = rabbitMqSender;
             this.kaffkaSender = kaffkaSender;
+            this.azureServiceBusSender = azureServiceBusSender;
         }
 
         [HttpGet("rabbitMq")]
@@ -35,6 +37,15 @@ namespace Publisher.Controllers
         {
             var data = GetJoysticData();
             kaffkaSender.Send(data);
+
+            return Task.CompletedTask;
+        }
+
+        [HttpGet("azureServiceBus")]
+        public Task SendDataByAzureServiceBus()
+        {
+            var data = GetJoysticData();
+            azureServiceBusSender.Send(data);
 
             return Task.CompletedTask;
         }
