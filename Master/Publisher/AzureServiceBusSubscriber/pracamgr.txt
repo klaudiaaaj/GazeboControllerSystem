@@ -474,7 +474,10 @@ escapeinside={@*}{*@},%
 
 \subsubsection*{Abstract} 
 (Thesis abstract – to be copied into an appropriate field during an electronic submission – in English.)
-
+The invastigations covered in this papers are related to the Microservices architecture. The main aim is to investigate the communication aspects within microservices architecture and their impact on the system performance, scalability and it's overall efficiency.
+The knowledge about the inter-services communication is crucial to build robust distributed systems. 
+The study delves into various communication patterns and techonologies commonly used in the microservices architecture, providing insights about its limitations, advantages and impact on the whole system behaviour. 
+ 
 \subsubsection*{Key words}  
 Event-Driven Pattern, Microservices, Azure Cloud, Communication, Gazebo, Architecture
 
@@ -515,30 +518,21 @@ Event-Driven Pattern, Microservices, Azure Cloud, Communication, Gazebo, Archite
 % TODO
 \chapter{Introduction}
 \section{Introduction to the problem domain}
-Nowadays, IT solutions are one of the main pillars needed for a thriving business and private enterprise.  They also have a great impact on the development of other avenues of learning by providing a simulation environment.  [DO POPRAWY]
-The performance of an IT solution depends mainly on the choice of technology and architecture. 
-This is a perennial problem due to the wide availability of all kinds of solutions and technologies on the market. 
-
-\subsection{Microservices} 
-
-The term 'Microservice' defining the small application which has single responsibility to the whole system. It has only one reason to change or to be replaced.
-
-
-The idea of the microservices is related to the demand of scaling along different axes independently which is more efficient at delivering software into production, or on other form of continuous delivery. This is a big trend in modern software architecture, that is why it is is extremely important to study it in perspective of communication and data flow.
-
-
-
-\subsection{Communication between microservices}
-Communication between microservices has a significant impact on the overall system architecture and behavior.
+Nowadays, IT solutions commonly are the core of maintenance and organization of many products and companies. The system for any enterprise with notable size is often very complex and composed of few independent solutions. The grown of a system commonly relates to the new contracts, connection to resources provided by new business partners or new technological solutions, such as cloud services, which have recently been a trend in software development. Due to the connection between them, such as infrastructure is called "Spaghetti architecture", which illustrated the unefficient, lack of order and hard to manage side of IT Solution.
+Reffering to this problem, many architectural patterns have been created over the years.
+Microservices are approach of software architecture which addresses many modern application challanges.  Microservices offers several adventages including scalability and flexibility in managing complex applications. 
+The main aspect is the good design of communcitaion and techonology choose between them. 
+ 
 
 \section{Contribution and objective of the thesis}
+For the purpose of conducting research for a master's thesis, a system based on the microservices architecture was developed, along with the creation of datasets. 
+Datasets were designed in various forms to perform experiments for a few different purposes of communication between subsystems. 
+Over the study, metrics are collected at multiple stages, starting from the serialization of data into an appropriate format for a given type of communication, to the reception of data and its subsequent deserialization into an object.
 
-The main objective of the thesis is to investigate how the delay in data transmission caused by the wrong choice of technology or its configuration is related to the loss of efficiency of the solution.
+The study ends with a simulation that emulated the real-word scenario of data transmission. 
+The data is send to the Gazebo simulates environment, impacting the situation of data transmission to the robot in the Gazebo simulation environment, triggering the robot’s motion.  It becomes possible to gain insides about how the type of communication impacts the trajectory and effecienty of the robot motion. 
+The findings of this study have the potential to contribute to the development of more efficient and optimized communication strategies within microservices-based applications.
 
-There are few aspects on which the communication between microservices has key value
-\begin{itemize}
-\item 
-\end{itemize}
 \section{Short summary of chapters}
 
 TODO IN THE LATE STATE
@@ -551,6 +545,12 @@ Co poruszam w kazdym z chapterow
 
 This chapter will focus on the fundamentals of software architecture based in the history and its evolution, including the comparison between monolith, microservices and software-oriented architecture. The communication problem between microservices and cloud solutions will be also covered. 
 
+\subsection{Microservices} 
+
+The term 'Microservice' defining the small application which has single responsibility to the whole system. It has only one reason to change or to be replaced.
+
+
+The idea of the microservices is related to the demand of scaling along different axes independently which is more efficient at delivering software into production, or on other form of continuous delivery. This is a big trend in modern software architecture, that is why it is is extremely important to study it in perspective of communication and data flow.
 
 \subsection{Monolith}
 
@@ -581,7 +581,7 @@ Modules perform various type of operations and transactions. There is no strict 
 Domain driven Design is a approach to the software development which concetrates on modeling sofware architecture to match a domain. The structure of application including the name convention of a classes, method and varaibles, should match the buisness domain.
 
 
-\subsection{Microservices}
+\section{Microservices}
 Adrian Cockcroft, famous technologist and strategist, defines a microservices architecture as a service-oriented architecture consisting of loosely coupled components that operate within well-defined boundaries.
 
 Loosely coupled means that services can be updated independently, without requiring changes to other services. If you have a collection of small, specialised services that still need to be updated simultaneously, they cannot be considered microservices. There is lack of loose coupling principle between them.
@@ -593,15 +593,16 @@ Each microservice has single resposibility for the system and has separate datab
 \subsubsection{Characterystics}
 The James Lewis and Martin Fowler in their  
 \href{https://martinfowler.com/articles/microservices.html}{article} have wrote down the set of characteristics related with Microservices Architecture. 
-\subsubsection{Communication}
-In the Microservices architecture, the communication is mostly performed by events. 
-There
+
+\subsection{Concepts of Microservices}
+\subsection{Benefits and Challenges of Microservices}
+
 \begin{itemize}
 \item
 implementacje w rzeczywistych projektach - problemy ktore sa napotykane ( przyklad z amazone podczas black friday - wsluchaj sie w podstast) i jak inni juz probowali rozwiazac ten problem
 \end{itemize} 
-
 \section{SOA vs Microservices}
+
 \chapter{Problem analysis}
 
 \section{Evolution of software architecture}
@@ -626,19 +627,38 @@ Netflix emerged as one of the first prominent companies to successfully transiti
 
 \subsection{Cloud and contenerization}
 {Napisz o koneneryzacji mikroiserwisow w chmurze} 
+
+\section{Overview of the literature}
 \chapter{Communication within Microservices}
-There is now a wide range of technologies that can be implemented in a microservices system.
-T 
 
+In microservices architecture there is few available communication patterns.
+The system architect is responsible for analyzing the advantages and disadvantages of each pattern. This evaluation process is crucial in order to make an informed decision and choose the most suitable communication pattern for the specific scenario of the system. By carefully considering the pros and cons of each pattern, the architect can ensure effective and efficient communication between the services in the system. Ultimately, the chosen communication pattern will play a significant role in determining the overall performance and functionality of the application. 
+
+There are few aspects on which the communication between microservices has key value. 
+
+\subsubsection{Scalability}
+\subsubsection{Resilience}
+\subsubsection{Data consistency}
+\subsubsection{Synchronization}
+\subsubsection{Security}
+\section{Communication Forms}
+\subsection{Synchronous}
+Synchronous communication refers to a communication pattern where services interact by exchanging messages and waiting for a timely response before proceeding further. In this approach, a service initiates a request to another service and waits for the response, blocking its execution until a reply is received.
+\subsection{Asynchronous}
+The most common communication approach. Asynchronous communication refers to a communication pattern where services interact without requiring immediate and direct response. In this approach, a service sends a message or request to another service and continues its execution without waiting for a response. The receiving service processes the message independently and may respond at a later time or not at all. 
 \section{Patterns}
-\section{Technology}
-The study will be carried out using three types of communication 
-\begin {itemize}
 
-\item RabbitMq
-\item Azure Service Bus
-\item Socket
+In this paper would be covered analysis of
+
+\begin{itemize}
+\item RESTful Web API Endpoint Integration
+REST is an abbreviation of REpresentational State Transfer.
+\item Messaging Integration
+\item Streaming Integration
 \end{itemize}
+
+\section{Technology}
+
  //teraz bedzie krotki opis tych technologii/
 
 %\begin{itemize}
@@ -647,8 +667,28 @@ The study will be carried out using three types of communication
 %\item How do others solve the problem?
 %\item What are pros and cons of my solution?
 
+\section{Synchronous vs Asynchronous}
 
+"Synchronous
+When it comes to the communication layer between microservices, synchronous is certainly
+the most widely used approach. Within this topic, some protocols are well known and
+others less so. The range of direct protocols is as follows:
+HTTP
+TCP
+WebSockets
+Sockets
+RPC
+SOAP"
 
+"Asynchronous
+In some direct communications between microservices, timing may be important, but there
+are other times where the process can simply be asynchronous; there's no need for an
+immediate response or confirmation of success, all that is required is to simply run a task.
+For this approach, the message broker is just perfect.
+Some software applications appear a good choice for message brokers, such as RabbitMQ,
+ActiveMQ, ZeroMQ, Kafka, and Redis. Each of these options has its own peculiarities, some
+are faster, others are more resilient. Again, the business setting is going to determine which
+technology is used."
 
 %\chapter{[Problem analysis]}
 %
