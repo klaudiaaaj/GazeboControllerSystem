@@ -474,9 +474,9 @@ escapeinside={@*}{*@},%
 
 \subsubsection*{Abstract} 
 (Thesis abstract – to be copied into an appropriate field during an electronic submission – in English.)
-The invastigations covered in this papers are related to the Microservices architecture. The main aim is to investigate the communication aspects within microservices architecture and their impact on the system performance, scalability and it's overall efficiency.
+The investigations covered in this papers are related to the Microservices architecture. The main aim is to investigate the communication aspects within microservices architecture and their impact on the system performance, scalability and it's overall efficiency.
 The knowledge about the inter-services communication is crucial to build robust distributed systems. 
-The study delves into various communication patterns and techonologies commonly used in the microservices architecture, providing insights about its limitations, advantages and impact on the whole system behaviour. 
+The study delves into various communication patterns and technologies commonly used in the microservices architecture, providing insights about its limitations, advantages and impact on the whole system behaviour. 
  
 \subsubsection*{Key words}  
 Event-Driven Pattern, Microservices, Azure Cloud, Communication, Gazebo, Architecture
@@ -523,13 +523,13 @@ Nowadays, IT solutions commonly are the core of maintenance and organization of 
 
  \begin{figure}
 \centering
-  \includegraphics[width=0.5\textwidth]{spaghitti.jpg}
-\caption{Spaggetti architecture diagram}
+  \includegraphics[width=0.5\textwidth]{spaghetti.jpg}
+\caption{Spaghetti architecture diagram}
 \label{fig1}
 \end{figure}
 
 Referring to this problem, many architectural patterns have been created over the years.
-Microservices are approach of software architecture which addresses many modern application challenges.  Microservices offers several advantages including scalability and flexibility in managing complex applications. The most important point of designing a microservices architecture is a good selection of technology and method of communication between individual subsystems. The choice of the pattern is complicated, because it requires cross-sectional knowledge of a wide range of technologies available on the market. The techonology should meets the requirements of the individual system and be optimal in relation to the costs.
+Microservices are approach of software architecture which addresses many modern application challenges.  Microservices offers several advantages including scalability and flexibility in managing complex applications. The most important point of designing a microservices architecture is a good selection of technology and method of communication between individual subsystems. The choice of the pattern is complicated, because it requires cross-sectional knowledge of a wide range of technologies available on the market. The technology should meets the requirements of the individual system and be optimal in relation to the costs.
 
 \section{Contribution and objective of the thesis}
 The main purpose of the thesis is to provide the solution of choosing a proper type of communication in process of creating the complex distributed system in microservices architecture.  \\
@@ -537,7 +537,7 @@ The goals of the thesis are as follows:
 \begin{itemize}
 \item Study existing communication technologies, 
 \item Identify the challenges of collaboration between microservices,
-\item Perform and experiment using choosen types of communication and various data packages,
+\item Perform and experiment using choose types of communication and various data packages,
 \item Recognise the configuration properties required to establish best performance communication between microservices using selected technology,
 \item Study the best usability of given technology depending on the demand of the system;
 \end{itemize}
@@ -546,13 +546,15 @@ The system is composed of multiple applications. It creates the space to perform
 Datasets were designed in various forms to perform experiments for a few different purposes of communication between subsystems. 
 Over the study, metrics are collected at multiple stages, starting from the serialization of data into an appropriate format for a given type of communication, to the reception of data and its subsequent deserialization into an object.\\
 The study ends with a simulation that emulated the real-word scenario of data transmission. 
-The data is send to the Gazebo simulates environment, impacting the situation of data transmission to the robot in the Gazebo simulation environment, triggering the robot’s motion.  It becomes possible to gain insides about how the type of communication impacts the trajectory and effecienty of the robot motion. 
+The data is send to the Gazebo simulates environment, impacting the situation of data transmission to the robot in the Gazebo simulation environment, triggering the robot’s motion.  It becomes possible to gain insides about how the type of communication impacts the trajectory and efficiently of the robot motion. 
 The findings of this study have the potential to contribute to the development of more efficient and optimized communication strategies within microservices-based applications.
 
 \section{Overview of the literature}
 The research methodology of this thesis was to conduct a comprehensive literature
-review. The information about the architectures were collected from books and articles. The information about the communication types were collected from various sources such as official documents, scientifics thesis, blogs and video conferences. The collaboration between microservices is currently under the constant development and researches. New technology solutions such as cloud enables to increse the performance and effeciency of the communication. 
-After the completion of literature review, it was confirmed that this topic is very common  nowadays problem and there is a lot of uncertainty about choosing the right connection type and its configuration when designing web applications. Most of blogs provides only brief comparison between two choosen technologies. However this kinds of researches were also very helpfull because it allows to analyze a specific use case. 
+review. The terms microservice, microservices, micro service, micro services, micro-service, and micro-services
+were searched in articles published in journals, conferences, books, and workshops. The research was restricted to articles published between
+2015 and 2023. The information about the communication types were collected from various sources such as official documents, scientific thesis, blogs and video conferences. The collaboration between microservices is currently under the constant development and researches. New technology solutions such as cloud enables to increase the performance and efficiency of the communication. 
+After the completion of literature review, it was confirmed that this topic is very common  nowadays problem and there is a lot of uncertainty about choosing the right connection type and its configuration when designing web applications. Most of blogs provides only brief comparison between two choose technologies. However this kinds of researches were also very helpful because it allows to analyse a specific use case. 
 
 [Jak bede analizować głębiej to pewnie coś jeszcze dopisze]
   
@@ -567,16 +569,16 @@ Co poruszam w kazdym z chapterow
 \chapter{Overview of terminology and technology evolution}
 
 
-This chapter would covered the brief description of a software architecutres and patterns strictly related with the problem domain. There would be also covered the comparison of base architectures in relation to the microservices.
-This chapter provides an comprehensive analysis of the evolution of Microservices architecture. It presents the its origins,  delving into the core motiviation aspects which leads to its creation. In this chapter would be examined the history context, the industrial software needs and the technology grown that shaped the emergence of creation of Microservices architecure as a prominent model in software engineering for complex systems.  
+This chapter would covered the brief description of a software architectures and patterns strictly related with the problem domain. There would be also covered the comparison of base architectures in relation to the microservices.
+This chapter provides an comprehensive analysis of the evolution of Microservices architecture. It presents the its origins,  delving into the core motivation aspects which leads to its creation. In this chapter would be examined the history context, the industrial software needs and the technology grown that shaped the emergence of creation of Microservices architecture as a prominent model in software engineering for complex systems.  
 
 
 \section{Architecture patterns}
 \subsection{Monolith}
 
-To analyse the Microservices it is good to menthion about the Monolith architecture, which is traditional model of software program. Monolith is build as a single unit, all code is deployed as an single unit. It is self-contained and independent from other applications. It can be consisted of a single module or multiple modules inside single process. 
+To analyse the Microservices it is good to mention about the Monolith architecture, which is traditional model of software program. Monolith is build as a single unit, all code is deployed as an single unit. It is self-contained and independent from other applications. It can be consisted of a single module or multiple modules inside single process. 
 Under one monolith application could be working multiple developers teams, which are working on different segments of application. 
-The disadventage of monolith is the difficulty of making changes.Due to this there could occurs multiple problems with blocking each other by waiting on changement of the same peace of code.  Any change, even a small one, involves updating the entire stack and deploying the updated version, which is very time consuming when the system is big. 
+The disadvantage of monolith is the difficulty of making changes.Due to this there could occurs multiple problems with blocking each other by waiting on changement of the same peace of code.  Any change, even a small one, involves updating the entire stack and deploying the updated version, which is very time consuming when the system is big. 
 
 The communication between modules in the Monolith architecture is performed using local method invocation. The intermodule communication could be problematic solution. This pattern is direct and synchronous, so if the called module does not respond or is not available within the system , the caller module will be impacted. The system could be blocked for the indefinite time or wait till the system return the time out error occurs,leading to a delayed response or reporting of system issues. [IMAGE - THE DIAGRAM WITH error]. 
 It issue becomes particularly significant for example when system is responsible for generates and manages data. If the function responsible for data analysis encounters parsing error, the system of generating data would stop.
@@ -590,7 +592,7 @@ All code located in one place, it is easier to debug,
 \item 
 One executable file is easier to deploy than multiple,
 \item 
-End to end testing can be performed faster than in the distrubuted systems:
+End to end testing can be performed faster than in the distributed systems:
 \end{itemize}
 
 \begin{figure}[h]
@@ -603,18 +605,18 @@ End to end testing can be performed faster than in the distrubuted systems:
 \subsection{Service-oriented architecture}
 The heavyweight nature of monolith architecture was slowly decomposed into modules. This process led to the formation of a new architecture known as service-oriented architecture (SOA). 
 
-Modules are communicating using the Enterprise Service Bus. Software-Oriented architecture manages and coorinates the services it delivers throught this layer. 
-For the whole system Enterprise Service Bus is single point of failure and if there occure any damege or delay (overwhelmed), the entire system could be affected.
-Modules perform various type of operations and transactions. There is no strict dividion into separates role for the particular module. The whole system is using sigle dedicated database enginee. Application is created of four different types of services: 
+Modules are communicating using the Enterprise Service Bus. Software-Oriented architecture manages and coordinates the services it delivers through this layer. 
+For the whole system Enterprise Service Bus is single point of failure and if there occur any damage or delay (overwhelmed), the entire system could be affected.
+Modules perform various type of operations and transactions. There is no strict division into separates role for the particular module. The whole system is using single dedicated database engine. Application is created of four different types of services: 
 \begin{description}
 \item \textbf{Functional services}\\
-The services which are responsible for the buissnes operations for the application. It encapsulated the buissnes logic and provide functionality that can be accessed by other components within the system. 
+The services which are responsible for the businesses operations for the application. It encapsulated the businesses logic and provide functionality that can be accessed by other components within the system. 
 \item \textbf{Enterprise services}\\
 The services which implements the functionality required by the system. It integrates multiple functional services to deliver end-to-end functionality. The service which performs coordination of various business processes across different systems or applications, could be given as an example of enterprise service. 
 \item \textbf{Application services}\\
 The services which are responsible for development and deployment. Provides the set of tools such as development frameworks, application deployment platforms, and runtime environments which could be used to perform build, deployment and manage the application within environment. 
 \item \textbf{Infrastructure services}\\
-The services which are related to the underlying technical infrastructure of a system. This services could be reposible for the authentication, security  or data management. It could also handle the communication protocols.  	
+The services which are related to the underlying technical infrastructure of a system. This services could be responsible for the authentication, security  or data management. It could also handle the communication protocols.  	
 
 The Service-oriented architecture is a precursor of Microservices architecture. However this architectures should not be comparable. There are few significant differences between them. 
 The Service-oriented architecture differs in scope. In Service-oriented architecture modules are shared and reused enterprise-wide. For example the scope of the application may include the entire department in the company or support for a specific subsystem, which could be consisted of full user authorization and the business logic (e.g. administrator module for user management). 
@@ -628,8 +630,8 @@ The Service-oriented architecture differs in scope. In Service-oriented architec
 \end{figure}
  
 \subsection{Microservices}
-Service-oriented architecutre was a precursor of microservices, laying the foundations for the development of ideas related to the modularization of services and applications. Microservices, although inspired by SOA architecture, have extended the concept of modularity. Microservices not only separate applications in order to optimize the amount of functions and data, but also segregate operations in terms of business logic basing on the Domain Driven Design. 
-Each microservice has single resposibility for the system and has separate database engine.
+Service-oriented architecture was a precursor of microservices, laying the foundations for the development of ideas related to the modularization of services and applications. Microservices, although inspired by SOA architecture, have extended the concept of modularity. Microservices not only separate applications in order to optimize the amount of functions and data, but also segregate operations in terms of business logic basing on the Domain Driven Design. 
+Each microservice has single responsibility for the system and has separate database engine.
 Microservices are discussed deeper in next chapers. 
  \begin{figure}[h]
 \centering
@@ -638,7 +640,7 @@ Microservices are discussed deeper in next chapers.
 \label{fig1}
 \end{figure}
 \subsubsection{Domain driven Design}
-Domain driven Design is a approach to the software development which concetrates on modeling sofware architecture to match a domain. The structure of application including the name convention of a classes, method and varaibles, should match the buisness domain.
+Domain driven Design is a approach to the software development which concentrates on modelling software architecture to match a domain. The structure of application including the name convention of a classes, method and variables, should match the business domain.
 
 
 \chapter{Microservices}
@@ -660,24 +662,40 @@ In 2011, the term 'microservices' (Microservices) emerged, which was introduced 
 \subsection{Netflix as a microservices pioneer}
 Netflix has played an important role in developing and promoting microservices architecture. Netflix was one of the pioneers in using microservices as the main approach to building its streaming platform.
 
-Netflix has stareted out as a small rental company. They offered an online DVD subscriptions through the Internet. Movies were mailed to the customers in the form of DVD's with prepaid return envelopes. 
-Nowadays Netflix is huge streaming platform which content is producted in-house ( Netflix Orginals) or producted by other companies and Netflix has distribution right to.
+Netflix has started out as a small rental company. They offered an on-line DVD subscriptions through the Internet. Movies were mailed to the customers in the form of DVD's with prepaid return envelopes. 
+Nowadays Netflix is huge streaming platform which content is produced in-house ( Netflix Originals) or produced by other companies and Netflix has distribution right to.
 
-With the huge shift in product delivery from postal services to online services, Netflix needed more and more resources on the Internet and powerful software, because its due to the increase of the demand, its infrastructure couldn't keep up. 
-The company made the decision to move its IT infrastructure from private data centers to a public cloud and replace its monolithic architecture with a microservices architecture. However, at that time, the term "microservices" was not widely known, and the structure itself was not well-established.
+With the huge shift in product delivery from postal services to on-line services, Netflix needed more and more resources on the Internet and powerful software, because its due to the increase of the demand, its infrastructure couldn't keep up. 
+The company made the decision to move its IT infrastructure from private data centres to a public cloud and replace its monolithic architecture with a microservices architecture. However, at that time, the term "microservices" was not widely known, and the structure itself was not well-established.
 
 Netflix emerged as one of the first prominent companies to successfully transition from a monolith to a cloud-based microservices architecture. This achievement was recognized in 2015 when it received the JAX Special Jury award. Today, Netflix manages and supports various parts of its platform through over a thousand microservices.
 
-\section{Characterystics}
+\section{Characteristics}
 The James Lewis and Martin Fowler in their  
-\href{https://martinfowler.com/articles/microservices.html}{article} have wrote down the set of characteristics related with Microservices Architecture. 
+\href{https://martinfowler.com/articles/microservices.html}{article} have wrote down the set of characteristics related with Microservices Architecture. They wrote that there is no universal characteristic for the microservices architecture but they have described the common ones. 
+
+\begin{description}
+
+\item Componentization via Services
+\
+\end{description}
 
 \section{Benefits and Challenges of Microservices}
 
 
 \section{Cloud and contenerization}
-{Napisz o koneneryzacji mikroiserwisow w chmurze} 
-//MOZE BEDZIE MOZE NIE BEDZIE
+In this section, first are located brief descriptions of concepts, used in the section subject. 
+\subsection{Containers}
+\subsection{Continuous delivery}
+Continuous Delivery is software concept that enables the demand deployment of a software to any native environment. It enables the delivery of software life circle to be automated.  It
+leverages techniques like Continuous Integration and Continuous Deployment. 
+\subsection{•}
+
+Cloud computing is growing paradigm which has big impact on the microsevices implementation.
+The usage of containers in the cloud makes Microservices development and deployment more agile. 
+
+In the security aspect, using the same host kernel for different containers makes it more possible for attackers to gain unauthorized access to containers.
+//TODO
 
 \begin{itemize}
 \item
@@ -692,35 +710,57 @@ The communication between particular subsystems play significant role in functio
 The communication is used for following aims: 
 \begin{description}
 \item \textbf{Checks system coherence }\\
-Maintening the distrubuted system could be challanging becasue each susbsytem can wrote in different time, by different developers and uisng different technologies.. The subsystems exchanges informations and validates data agains predefined rules, to ensure that each services operates within the specified constriains. The validation process checks the consistency of a data and cross-services depencencies which guarantees that the system coherence of a system. 
-\item \textbf{Database transations integrity  }\\
-Maintaning the data consistency can be also changer to the distributed system. 
+Maintening the distributed system could be challenging because each subsystem can wrote in different time, by different developers and using different technologies.. The subsystems exchanges informations and validates data again predefined rules, to ensure that each services operates within the specified constrains. The validation process checks the consistency of a data and cross-services dependencies which guarantees that the system coherence of a system. 
+\item \textbf{Database translations integrity  }\\
+Maintaining the data consistency can be also changer to the distributed system. 
 From the definition of microservices, each microservice should have separate instance of database. Even if each of the system, performs different operation, it could operate on the same set of data. In this situation if the data is modified by one system, the modifying system should notify other systems to update them databases about the changement which was conducted. 
 \item \textbf{Collaboration and task synchronization}\\
-Referring to the genesis of microservices architecture, the system is consisted of particular services where each subsystem is responsible for single functionality. The whole system collaborates to fulfill the business processes that span across different domains. 
+Referring to the genesis of microservices architecture, the system is consisted of particular services where each subsystem is responsible for single functionality. The whole system collaborates to fulfil the business processes that span across different domains. 
 Communication between them enables the possibility to work together seamlessly to deliver complex business functionalities. Very often there is need to exchange data to perform respective tasks. 
 Communication between microservices plays a significant role in facilitating task synchronization by enabling the exchange of control signals, status updates, and coordination messages among the participating services.
-Microservices can share status of updates and progress information during the task exectution, enabling other services to take appropriate action  basing on the status. It enables to have real-time transparency, allowing better monitoring and decision-making. 
+Microservices can share status of updates and progress information during the task execution, enabling other services to take appropriate action  basing on the status. It enables to have real-time transparency, allowing better monitoring and decision-making. 
 
 \item \textbf{Fault tolerance}\\
 Communication between microservices plays a significant role in achieving effective fault tolerance and robust exception handling mechanisms.
-Microservices are commonly deployed independently and errors could occur only in seperate subsystem. There is various reasons which causes the errors such as the service unavailability because of cloud provider and network disruptions. Microservices can attempt to execute failed operation again providing a change for the success. It can implement the backoff mechanism, it can manage the time intervals between retries reducing the time of load of the system and allowing to recovery of unavailable system.   
+Microservices are commonly deployed independently and errors could occur only in separate subsystem. There is various reasons which causes the errors such as the service unavailability because of cloud provider and network disruptions. Microservices can attempt to execute failed operation again providing a change for the success. It can implement the backoff mechanism, it can manage the time intervals between retries reducing the time of load of the system and allowing to recovery of unavailable system.   
 Additionally, communication enables microservices to implement circuit breakers, which can detect and prevent further calls to a failing service, avoiding cascading failures and improving system stability. This isolation enhances the resilience and stability of the microservices architecture.
 
 \item \textbf{Exception Handling}\\
-Exception handling is a crucial aspects of any software system. It  coordinates the exception handling across multiple microseriveces. 
-The communication role in the exception handling in the distrubuted architecture is propagation the exception information to other relevant services to share the awareness of the error.When an exception occurs in one microservice, it may have implications for related or dependent services
-It ensures that the exeption was properly handled and prevents from being ignored or lost. 
+Exception handling is a crucial aspects of any software system. It  coordinates the exception handling across multiple microservices. 
+The communication role in the exception handling in the distributed architecture is propagation the exception information to other relevant services to share the awareness of the error.When an exception occurs in one microservice, it may have implications for related or dependent services
+It ensures that the exception was properly handled and prevents from being ignored or lost. 
 
 Communication also enables the properly gain the logs and insides from the exception ( for example by sending it to the proper service which is responsible for collection the logs). It helps to centralize logging system and monitoring tools. This can result in fast system administrator and developers reaction, to repair the system failure. 
 
 
 \item \textbf{Scalability}\\
-\item \textbf{Resilience}\\
+Scalability is main requirement to create modern, efficient software system. Communication between microservices play a crucial role in achieving scalable architecture. 
+
+Communication enables the horizontal scaling by sharing the information by subsystems about their availability and capacity allowing the system to dynamically adapt and distribute the processes efficiently. System can handle higher volumes of requests. 	
+Communication supports the concept of elasticity in microservices, which refers to ability of system to automatically scale up and down, basing on the demand. 
+By communication system can monitor the resources usage ( such as network bandwidth, CPU and memory usage) and dynamically adjust their capacity. The dynamic scaling helps the efficient utilization of available resources and optimize resources allocation. It helps prevent bottlenecks. 
+
 \item \textbf{Security}\\
+
+Security is crucial element in all the software systems. Communication plays a significant role in securing systems in microservices architecture.  Communication in microservices exposes them to the risk that send message could be intercepted and be able for thrives to infer the business logic operations. Microservices are commonly deployed in in many distributed containers so the data  so it is a potential threat to steal data from one of them. 
+However the communication process can be under various security mechanisms.
+
+Implementing the security on communication system can prevent the exposing the malicious process when one of subsystems is attacked.
+Gegick and Barnum 73 proposed that only the minimum necessary rights should be assigned to a
+subject that requests access to a resource and should be in effect for the shortest duration necessary ( reference to :" A survey on security issues in services communication of
+Microservices-enabled fog applications"). 
+
+Communication enforces the secure of communication protocols using a network-level security . Microservices can communicate over the secure channels which uses the encryption protocols ( for example: Transport Layer Security (TLS) and Secure Sockets Layer (SSL)).
+The encryption makes the communication secure the 	sensitive data from eavesdropping, tampering, or interception. 
+
+To protect data during the communication, there could be implemented the data encryption,  that utilizes shared key and public
+key encryption. The data can be encrypted by for example Advanced Encryption Standard (AES) as hared key encryption and RSA encryption algorithm as public key encryption scheme.
+
+ 
+There is possibility to implement the Authorization and Authentication  through the communication. Microservices can exchange authentication tokens or credentials to verify the identity of the communicating subsystems. 
+Thanks to the authorization process, there can be implemented additional role management. Role-based access control (RBAC) or attribute-based access control (ABAC) can limits the right to perform specific action only for selected system users. 
 \end{description}
 
-\section {Cost of the communication}
 \section{Communication Forms}
 \subsection{Synchronous}
 Synchronous communication refers to a communication pattern where services interact by exchanging messages and waiting for a timely response before proceeding further. In this approach, a service initiates a request to another service and waits for the response, blocking its execution until a reply is received. The examples of synchronous communication protocols are:
@@ -733,14 +773,14 @@ SOAP
 
 \subsection{Asynchronous}
 The most common communication approach. Asynchronous communication refers to a communication pattern where services interact without requiring immediate and direct response. In this approach, a service sends a message or request to another service and continues its execution without waiting for a response. The receiving service processes the message independently and may respond at a later time or not at all. 
-\section {Available technolgies}
+\section {Available technologies}
 The communication is 
- Currently on the market is available huge diversity of different technologies resposnible for the connection of multiple subsystems. However even the role of each technology is the same, the usage in particular systems can differ significantly. 
+ Currently on the market is available huge diversity of different technologies responsible for the connection of multiple subsystems. However even the role of each technology is the same, the usage in particular systems can differ significantly. 
 
 
 \section{Patterns}
 In microservices architecture there is few available communication patterns.
-The system architect is responsible for analyzing the advantages and disadvantages of each pattern. This evaluation process is crucial in order to make an informed decision and choose the most suitable communication pattern for the specific scenario of the system. By carefully considering the pros and cons of each pattern, the architect can ensure effective and efficient communication between the services in the system. Ultimately, the chosen communication pattern will play a significant role in determining the overall performance and functionality of the application.
+The system architect is responsible for analysing the advantages and disadvantages of each pattern. This evaluation process is crucial in order to make an informed decision and choose the most suitable communication pattern for the specific scenario of the system. By carefully considering the pros and cons of each pattern, the architect can ensure effective and efficient communication between the services in the system. Ultimately, the chosen communication pattern will play a significant role in determining the overall performance and functionality of the application.
 
 
 [TODO OPISSSSS]
