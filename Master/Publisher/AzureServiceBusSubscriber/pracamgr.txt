@@ -90,8 +90,8 @@
 \newcommand{\Specialisation}{Informatics}
 \newcommand{\Id}{$\langle$your student id$\rangle$}                   % remove \langle and \rangle in final version
 \newcommand{\Departament}{$\langle$departament name$\rangle$}         % remove \langle and \rangle in final version
-\newcommand{\Surname}{Doe}
-\newcommand{\Firstnames}{John}
+\newcommand{\Surname}{Janecka}
+\newcommand{\Firstnames}{Klaudia}
 
 % If you have a consultant for your thesis, put their name below ...
 %\newcommand{\Consultant}{$\langle$title first name surname$\rangle$}  %  (remove $\langle$ and $\rangle)
@@ -670,37 +670,65 @@ The company made the decision to move its IT infrastructure from private data ce
 
 Netflix emerged as one of the first prominent companies to successfully transition from a monolith to a cloud-based microservices architecture. This achievement was recognized in 2015 when it received the JAX Special Jury award. Today, Netflix manages and supports various parts of its platform through over a thousand microservices.
 
-\section{Characteristics}
-The James Lewis and Martin Fowler in their  
-\href{https://martinfowler.com/articles/microservices.html}{article} have wrote down the set of characteristics related with Microservices Architecture. They wrote that there is no universal characteristic for the microservices architecture but they have described the common ones. 
 
-\begin{description}
-
-\item Componentization via Services
-\
-\end{description}
 
 \section{Benefits and Challenges of Microservices}
 
+Microservices architecture is a great architectural pattern. However is more complex than legacy systems so it comes with some challenges. As the number of subservices grows so does the complexity of managing and maintaining the data consistency.
+ 
+The first problem is meet at the beginning of creating system. Software architect has to find appropriate boundaries of the subsystem. It whole buissness requirements has to be broken down 	into specific domains and create the microservices that are sized adequately, which is difficult to achieve. 
+
+In following architecture, there is also 	difficulty to test the whole system. In addition to testing individual services independently, service integration and interdependencies should also be considered during creating a end-to-end test plan.
+
+Microservices standards allows to make subsystems using different technologies. It can cause many problems, starting from integrating microservices to use the same libraries for common operations, finishing with transition to the maintenance mode. The advantages got from technical diversity may quickly get outweighed by increased maintenance costs, because of need to have maintenance team, composed of developers who knows whole the technology stack. They have to be aware of the entire stack and not make any breaking change in the functionality that other services depend on.
+
+However most of the challenges related to the microservices are around the necessity to share the bushiness data and informations between subsystems. All of that, can be solved with a good communication implementation, which will be discussed in next chapter. 
 
 \section{Cloud and contenerization}
-In this section, first are located brief descriptions of concepts, used in the section subject. 
-\subsection{Containers}
+In this section, first are presented brief descriptions of concepts, used in the section subject. 
+\subsection{Containerization }
+Containerization is a form of visualization which operates on the application level. It enables the creation of multiple independent instances within a single kernel. This instances are known as a containers, which serve as self-contained units that package an application's code, runtime, system tools, libraries, and configurations into a single entity.Containers visualize CPU, memory, storage, and network resources at the operating system level, creating a segregated environment where developers can interact with the OS independently from other applications and environments. Containers shares a common kernel, which is installed on the underlying hardware.
+
+
+An container images serves a fundamental building block.  It is a file that contains all the necessary components to run an application within a container. The image includes the application's code, dependencies, libraries, system tools, and configurations.Images are build based on the configuration files, in which are specified the steps required to build an image in the container instance. 
+
+ Docker, being the most widely adopted open-source container format.
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.7\textwidth]{container.png}
+\caption{Container vs Casual}
+\label{fig1}
+\end{figure}
+\subsubsection{Docker}
+Docker is commonly used contenerization platform. It provides an additional layer of abstraction and automation for container management. It simplifies the process of creating, deploying, and running applications within containers.
+Docker offers the docker compose tool which helps to create a multi-container application, it helps to configure and run applications made up of multiple container. 
+For the docker users it provides a ecosystem of pre-build container images available through the internet on the Docker Hub website. It provides developers the convenient way of leverage the existing solutions again. 
+
+
+
+\subsection{Orchestration}
+The process of managing and arranging containers to support applications is known as container orchestration. It is fully managed by container orchestration tools. These tools provide the necessary mechanisms to deploy, scale, manage, and monitor containerized applications.  These tools help automate tasks such as container deployment, load balancing, service discovery, scaling, and fault tolerance, making it easier to manage complex containerized environments efficiently. Some widely used open-source container orchestration tools include Kubernetes, Docker Swarm, and LXC.
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.7\textwidth]{orche.png}
+\caption{Container orchestrator}
+\label{fig1}
+\end{figure}
+\subsubsection{Kubernetess}
+Kubernetes(known as K8S) is an open-source platform designed to automate the deployment, scaling, and management of containerized applications
+
+Kubernetess organizes containers that form an application into cohesive units, providing the easy way to manage complex system. Kubernetes leverages Google's extensive experience in running production workloads for over 15 years, incorporating valuable insights and industry best practices gathered from the community.
 \subsection{Continuous delivery}
 Continuous Delivery is software concept that enables the demand deployment of a software to any native environment. It enables the delivery of software life circle to be automated.  It
 leverages techniques like Continuous Integration and Continuous Deployment. 
-\subsection{•}
-
-Cloud computing is growing paradigm which has big impact on the microsevices implementation.
+\subsection{Microservices in Cloud computing}
+In recent years cloud computing gained the interest and trust of many researches and industries. This is growing paradigm which has big impact on the microsevices implementation. Currently on the market there is many cloud services providers such as Microsoft Azure, Amazon Web Services (AWS), Google Cloud Platform (GCP), IBM Cloud, and Kamatera. 
 The usage of containers in the cloud makes Microservices development and deployment more agile. 
+Microservices are absctracted meaning they can be run on any operating system located in the public cloud, on premises or in the virtual hypervisor. They can be also migrated back from cloud to on-premises and back.
+Containers are a perfect solution for the deployment of microservices. They can be launched in the second, so redeployment of any failure or migration can be done rapidly. It helps scale quickly to meet current demands. The entire microservice application can be deployed as a cluster using orchestrator. 
 
-In the security aspect, using the same host kernel for different containers makes it more possible for attackers to gain unauthorized access to containers.
-//TODO
-
-\begin{itemize}
-\item
-implementacje w rzeczywistych projektach - problemy ktore sa napotykane ( przyklad z amazone podczas black friday - wsluchaj sie w podstast) i jak inni juz probowali rozwiazac ten problem
-\end{itemize} 
+In the security aspect, using the same host kernel for different containers makes it more possible for attackers to gain unauthorized access to containers. Containers which relyies on the underlying operating system's kernel provides the resources isolation. 
+If an attacker manages to exploit a vulnerability in the shared kernel, they may gain unauthorized access to the host system and potentially compromise all containers running on that host.  It is called the "container escape". Container technologies like Docker and Kubernetes have implemented security measures to mitigate these risks. 
 
 \chapter{Communication}
 This chapter will focus on analysis of problem related to the performed experiments. The conducted research is aimed at demonstrating the effectiveness of a given technology in general terms and the functioning of the entire system.
@@ -761,29 +789,100 @@ There is possibility to implement the Authorization and Authentication  through 
 Thanks to the authorization process, there can be implemented additional role management. Role-based access control (RBAC) or attribute-based access control (ABAC) can limits the right to perform specific action only for selected system users. 
 \end{description}
 
-\section{Communication Forms}
-\subsection{Synchronous}
-Synchronous communication refers to a communication pattern where services interact by exchanging messages and waiting for a timely response before proceeding further. In this approach, a service initiates a request to another service and waits for the response, blocking its execution until a reply is received. The examples of synchronous communication protocols are:
-HTTP
-TCP
-WebSockets
-Sockets
-RPC
-SOAP
-
-\subsection{Asynchronous}
-The most common communication approach. Asynchronous communication refers to a communication pattern where services interact without requiring immediate and direct response. In this approach, a service sends a message or request to another service and continues its execution without waiting for a response. The receiving service processes the message independently and may respond at a later time or not at all. 
-\section {Available technologies}
-The communication is 
- Currently on the market is available huge diversity of different technologies responsible for the connection of multiple subsystems. However even the role of each technology is the same, the usage in particular systems can differ significantly. 
-
-
-\section{Patterns}
+\section{Communication Patterns }
 In microservices architecture there is few available communication patterns.
 The system architect is responsible for analysing the advantages and disadvantages of each pattern. This evaluation process is crucial in order to make an informed decision and choose the most suitable communication pattern for the specific scenario of the system. By carefully considering the pros and cons of each pattern, the architect can ensure effective and efficient communication between the services in the system. Ultimately, the chosen communication pattern will play a significant role in determining the overall performance and functionality of the application.
 
+\subsection{Synchronous}
+Synchronous communication refers to a communication pattern where services interact by exchanging messages and waiting for a timely response before proceeding further. In this approach, a service initiates a request to another service and waits for the response, blocking its execution until a reply is received.
+However it is possible to asynchronous interactions using synchronous technologies. Client services instead of waiting the request to be completed, can implement the pattern like pooling in separate thread to check the service for completion in some period of time. 
+ The examples of synchronous communication protocols are:
+\begin{itemize}
+  \item Hypertext Transfer Protocol (HTTP)
+  \item Transmission Control Protocol (TCP)
+  \item Remote Procedure Call (RPC)
+  \item Simple Object Access Protocol (SOAP)
+\end{itemize}
 
-[TODO OPISSSSS]
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.7\textwidth]{communication.png}
+\caption{Synchronous communication diagram}
+\label{fig1}
+\end{figure}
+
+\subsection{Asynchronous}
+ Asynchronous communication refers to a communication pattern where services interact without requiring immediate and direct response. In this approach, a service sends a message or request to another service and continues its execution without waiting for a response. The receiving service processes the message independently and may respond at a later time or not at all. 
+The most popular protocols for the Asynchronous Communication are: 
+   \begin{itemize}
+  \item Message Queuing Telemetry Transport (MQTT)
+  \item Advanced Message Queuing Protocol (AMQP)
+  \item Apache Kafka
+  \item Java Message Service (JMS)
+  \item WebSockets
+\end{itemize}
+\begin{figure}[h]
+\centering
+  \includegraphics[width=0.7\textwidth]{communication.png}
+\caption{Asynchronous communication diagram}
+\label{fig1}
+\end{figure}
+\section {Available technologies}
+
+
+ Currently on the market is available huge diversity of different technologies responsible for the connection of multiple subsystems.
+All of the commonly used technologies bases the communication on the protocols listed above.
+\subsubsection{Synchronous}
+\begin{description}
+  \item Hypertext Transfer Protocol (HTTP)
+  \begin{itemize}
+    \item RESTful 
+     \item GraphQL 
+      \end{itemize}
+  \item Transmission Control Protocol (TCP)
+   \begin{itemize}
+    \item RMI  
+     \item gRPC 
+      \end{itemize}
+  \item Remote Procedure Call (RPC)
+   \begin{itemize}
+    \item gRPC 
+      \end{itemize}
+  \item Simple Object Access Protocol (SOAP)
+   \begin{itemize}
+    \item Apache CXF 
+     \item WCF  
+      \end{itemize}
+\end{description}
+\subsubsection{Asynchronous}
+   \begin{description}
+    \item Message Queuing Telemetry Transport (MQTT)
+     \begin{itemize}
+    \item Eclipse Paho
+      \end{itemize}
+  \item Advanced Message Queuing Protocol (AMQP)
+       \begin{itemize}
+    \item RabbitMQ
+      \end{itemize}
+  \item Apache Kafka
+       \begin{itemize}
+    \item Kafka Streams
+     \item Confluent Platform
+      \end{itemize}
+  \item Java Message Service (JMS)
+       \begin{itemize}
+    \item Apache ActiveMQ
+     \item Apache IBM MQ
+      \end{itemize}
+  \item WebSockets
+       \begin{itemize}
+    \item Socket.IO
+      \item SignalR
+      \end{itemize}
+   
+   \end{description}
+
+
 
 %\begin{itemize}
 %\item What problem do I want (have to :-) to solve?
