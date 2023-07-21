@@ -838,6 +838,7 @@ All of the commonly used technologies bases the communication on the protocols l
   \begin{itemize}
     \item RESTful 
      \item GraphQL 
+         \item Azure Service Bus
       \end{itemize}
   \item Transmission Control Protocol (TCP)
    \begin{itemize}
@@ -863,7 +864,9 @@ All of the commonly used technologies bases the communication on the protocols l
   \item Advanced Message Queuing Protocol (AMQP)
        \begin{itemize}
     \item RabbitMQ
+    \item Azure Service Bus
       \end{itemize}
+      
   \item Apache Kafka
        \begin{itemize}
     \item Kafka Streams
@@ -874,10 +877,11 @@ All of the commonly used technologies bases the communication on the protocols l
     \item Apache ActiveMQ
      \item Apache IBM MQ
       \end{itemize}
-  \item WebSockets
+  	\item WebSockets  
        \begin{itemize}
     \item Socket.IO
       \item SignalR
+        \item Azure Service Bus
       \end{itemize}
    
    \end{description}
@@ -892,25 +896,73 @@ All of the commonly used technologies bases the communication on the protocols l
 
 
 
-%\chapter{[Problem analysis]}
-%
-%\begin{itemize}
-%\item problem analysis, problem statement
-%\item state of the art, literature research (all sources in the thesis have to be referenced, eg journal article \cite{bib:article} book \cite{bib:book}, conference paper \cite{bib:conference}, internet source \cite{bib:internet})
-%\item description of known solutions, algorithms
-%\item location of the thesis in scientific domain
-%\item The title of this chapter is similar to the title of the thesis.
-%\end{itemize}
+\chapter{Implementation}
+
+-architektura projektu
+- deployment na contenera
+
+-Test setup
+- dane 
+- jakie technologie 
 
 
-% TODO
+\section{Technologies}
+\section{Experiments Plan}
 
-\chapter{[Chapter title]}
+The experiments are performed in 2 ways: 
+1) Using JMeter Tool
+2) Using Test Case/ Application implementation
 
-tekst
+\subsection{Azure Service Bus}
 
-\section{[Section title]}
+Azure bus service is asynchronous communication service of type platform-as-a-service on the Azure Cloud. Following service provides a lot of configuration options to suite customer demand. 
 
+
+Azure Service Bus is a message broker with message queues and publish-subscribe topics. 
+
+Topic and queues uses the same mechanism for the producer however are processes differently by the consumer.
+
+Messages 
+
+Messages are ordered in queues and timestamped with arrival time. It provides the 	First In, First Out message delivery to one or more competative customers.  Service keeps messages until they have been reported by client as accepted. Queues usually are used as a point-to-point communication, because each message can be processed only by one customer. 
+\cite{11}
+
+Topics 
+Topic can have multiple subscribers which are listening to the topic.  It is suitable for the publish/subscribe pattern which is useful for scaling huge number of recipients. Each message is availabled for each client who is subscribing the topic. The message is deleted after every subscriber has processed the message.  \cite{11} .
+
+A topic subscription is a mechanism in Azure Service Bus that allows multiple consumers to receive copies of messages sent to a specific topic. It functions as  a virtual queue, where each subscription acts as an independent recipient of messages. When a message is sent to the topic, it is automatically forwarded to all associated subscriptions. 
+
+Topic can be set with multiple properties which can be used as a filtration for a client, while queues does not implement the filtration option. 
+
+\subsubsection{Formats}
+The messages could be constructed in following formats:  JSON, XML, Apache Avro, Plain Text. 
+
+\subsubsection{Protocols}
+The messages is Azure Service Bus can be send by following protocols:
+AMQP 1.0/1.1 (Advanced Message Queuing Protocol), MQTT 3.1 (MQ Telemetry Transport), OpenWire 2, 0MQ 2, STOMP 1.2, or HTTP 1.1
+
+\subsubsection{Configuration}
+Azure Service Bus provides few features allowing customize message broker. 
+
+Dead-lettering 
+Subqueue which hold messages which can't be revived nor processed by any client. 
+Can be removed then and inspected, to repair it or resubmit. 
+
+Scheduled delivery
+
+Partitioning 
+Standard queue or topic is handled by a single message broker and stored in one messaging store. However thanks to the  feature 'Partitioning',throughput of a partitioned entity is no longer limited by the performance of a single message 
+ because it enables queue and topics to be partitioned across multiple message brokers.
+ 
+Feature partitioning is limited regarding to the tier. 
+When partitioning is enabled in the Basic or Standard SKUs, we will always create 16 partitions.
+When partitioning is enabled in the Premium SKU, the amount of partitions is specified during namespace creation.
+ 
+ The Test will be performed on the standard Tier. 
+ 
+ \subsection{Experiments}
+ 
+ First 
 \section{[Subsection title]}
 
 Each figure in the document should be referred to at least once (fig. \ref{fig:2}).
@@ -1230,11 +1282,42 @@ Additional files uploaded to the system include:
 
 % TODO
 \chapter{Biblography}
-https://dzone.com/articles/adopting-microservices-netflix
+\begin{thebibliography}{9} % 9 to przykładowa maksymalna liczba odwołań
 
-Microservices, IoT,
-and Azure
+\bibitem{bib:article1}
+[1] Surname, Name and Name Surname. "Title of an article in a journal." \emph{Journal Title} 157.8 (2016): 1092--1113.
 
+\bibitem{bib:article2}
+[2] Dongjin Yu, Yike Jin, Yuqun Zhang, Xi Zheng. "A survey on security issues in services communication of Microservices-enabled fog applications." \emph{Wiley} 19 (2017): 2-3.
+
+\bibitem{bib:conference}
+[3] Name Surname, Surname, Name, and N. Surname. "Title of a conference article." \emph{Conference title} (2006): 5346--5349.
+
+\bibitem{bib:internet1}
+[4] Name Surname, Surname, Name, and N. Surname. "Title of a web page." (2021). \\ \url{http://somewhere/on/the/internet.html}. (Accessed: 2021-09-30).
+
+\bibitem{bib:book1}
+[5] Bob Familiar. \emph{Microservices, IoT, and Azure}. Appress, 2015.
+
+\bibitem{bib:book2}
+[6] Sam Newman. \emph{Monolith to Microservices: Evolutionary Patterns to Transform Your Monolith}. O'Reilly Media, Inc, 2020.
+
+\bibitem{bib:internet2}
+[7] Sasha Mathews. "4 Ways to Establish Communication between Microservices." (2022). \\ \url{https://levelup.gitconnected.com/4-ways-to-establish-communication-between-microservices-984207f29497}. (Accessed: Jan 25, 2022).
+
+\bibitem{bib:book3}
+[8] Vinicius Feitosa Pacheco. \emph{Microservice Patterns and Best Practices}. Packt Publishing, 2018.
+
+\bibitem{bib:internet3}
+[9] Mehmet Ozkaya. "Microservices Communications." (2021). \\ \url{https://medium.com/design-microservices-architecture-with-patterns/microservices-communications-f319f8d76b71}. (Accessed: Sep 7, 2021).
+
+\bibitem{bib:internet4}
+[10] Alibaba Cloud. "What Is Containerization?" \\ \url{https://www.alibabacloud.com/knowledge/what-is-containerization}.
+
+\bibitem{bib:AzureServiceBus}
+[11] Ashish Patel. "Azure — Difference between Azure Service Bus Queues and Topics." (2021). \\ \url{https://medium.com/awesome-azure/azure-difference-between-azure-service-bus-queues-and-topics-comparison-azure-servicebus-queue-vs-topic-4cc97770b65}. (Accessed: Jul 4, 2021).
+
+\end{thebibliography}
 
 
 \listoffigures

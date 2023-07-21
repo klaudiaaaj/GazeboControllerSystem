@@ -4,9 +4,28 @@ namespace RESTClient.cs.Controllers
 {
     public class ClientController : Controller
     {
-        public IActionResult Index()
+        private readonly HttpClient _httpClient;
+
+        public ClientController(IHttpClientFactory httpClientFactory)
         {
-            return View();
+            _httpClient = httpClientFactory.CreateClient();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            // Wywołanie API mikroserwisu producenta
+            var response = await _httpClient.GetAsync("https://adres-producenta/api/sample");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                return Ok(data);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
     }
 }

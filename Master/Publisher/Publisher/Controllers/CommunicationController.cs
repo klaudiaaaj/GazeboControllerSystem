@@ -1,9 +1,5 @@
-﻿using Contracts.Models;
-using CsvHelper;
-using CsvHelper.Configuration;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Publisher.Services;
-using System.Globalization;
 
 namespace Publisher.Controllers
 {
@@ -12,20 +8,20 @@ namespace Publisher.Controllers
         public readonly IRabbitMqSender rabbitMqSender;
         public readonly IKaffkaSender kaffkaSender;
         public readonly IAzureServiceBusSender azureServiceBusSender;
-       
-        string _sheetPath = @"joystick_data.csv";
+        public readonly IDataProducerService dataProducerService;   
 
-        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender)
+        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender, IDataProducerService dataProducerService)
         {
             this.rabbitMqSender = rabbitMqSender;
             this.kaffkaSender = kaffkaSender;
             this.azureServiceBusSender = azureServiceBusSender;
+            this.dataProducerService = dataProducerService;
         }
 
         [HttpGet("rabbitMq")]
         public Task SendDataByRabbitMq()
         {
-            var data = GetJoysticData();
+            var data = dataProducerService.GetJoysticData();
             rabbitMqSender.Send(data);
 
             return Task.CompletedTask;
@@ -35,7 +31,7 @@ namespace Publisher.Controllers
         [HttpGet("kaffka")]
         public Task SendByKaffka()
         {
-            var data = GetJoysticData();
+            var data = dataProducerService.GetJoysticData();
             kaffkaSender.Send(data);
 
             return Task.CompletedTask;
@@ -44,31 +40,10 @@ namespace Publisher.Controllers
         [HttpGet("azureServiceBus")]
         public Task SendDataByAzureServiceBus()
         {
-            var data = GetJoysticData();
+            var data = dataProducerService.GetJoysticData();
             azureServiceBusSender.Send(data);
 
             return Task.CompletedTask;
-        }
-
-        private IList<Joystic> GetJoysticData()
-        {
-            IList<Joystic> joysticData = new List<Joystic>();
-
-            //////Read the data
-            using (var reader = new StreamReader(_sheetPath))
-            {
-                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-                {
-                    HeaderValidated = null,
-                    MissingFieldFound = null
-                };
-                using (var csv = new CsvReader(reader, config))
-                {
-                    var joystickData = csv.GetRecords<Joystic>();
-                    joysticData = joystickData.ToList();
-                }
-            }
-            return joysticData;
-        }
+        }   
     }
 }
