@@ -4,6 +4,8 @@ using RabbitmqSubscriber.Services;
 
 namespace RabbitmqSubscriber.Controllers
 {
+    [ApiController]
+    [Route("api/rabbitMq")]
     public class RabbitMqClientController : Controller
     {
         private readonly IRabbitMqSubscriberService rabbitMqService;
@@ -13,12 +15,11 @@ namespace RabbitmqSubscriber.Controllers
             this.rabbitMqService = rabbitMqService;
         }
 
-        [HttpGet("Experiment Single")]
-        public Task<Joystic> GetSingleObjectById()
+        [HttpGet("single")]
+        public IActionResult GetSingleObjectById()
         {
             var response = rabbitMqService.ExecuteAsyncSingle();
-
-            return response;
+            return Ok(response);
         }
     }
 }

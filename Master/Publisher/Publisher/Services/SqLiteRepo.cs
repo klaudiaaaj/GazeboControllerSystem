@@ -134,8 +134,6 @@ namespace Publisher.Services
             sqlite_cmd.ExecuteNonQuery();
             sqlite_cmd.CommandText = "INSERT INTO SampleTable(Col1, Col2) VALUES('Test2 Text2 ', 3); ";
             sqlite_cmd.ExecuteNonQuery();
-
-
             sqlite_cmd.CommandText = "INSERT INTO SampleTable1(Col1, Col2) VALUES('Test3 Text3 ', 3); ";
             sqlite_cmd.ExecuteNonQuery();
 
