@@ -16,7 +16,7 @@ namespace Publisher.Services
         {
             _configuration = configuration;
             _logger = logger;
-         //   InitializeRabbitMQ();
+            InitializeRabbitMQ();
         }
         private void InitializeRabbitMQ()
         {
@@ -38,11 +38,11 @@ namespace Publisher.Services
                 foreach (Joystic joystic in message)
                 {
                     var id = Guid.NewGuid();
-                     ros.GazeboContractor(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2));
-                    //channel.BasicPublish(exchange: "amq.topic",
-                    //                                routingKey: "joystic-queue",
-                    //                                basicProperties: null,
-                    //                                body: Encoding.UTF8.GetBytes(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2, id.ToString())));
+                    // ros.GazeboContractor(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2));
+                    channel.BasicPublish(exchange: "amq.topic",
+                                                    routingKey: "joystic-queue",
+                                                    basicProperties: null,
+                                                    body: Encoding.UTF8.GetBytes(String.Join(",", joystic.time, joystic.axis_1, joystic.axis_2, joystic.button_1, joystic.button_2, id.ToString())));
 
                 }
 
