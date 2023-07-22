@@ -1,7 +1,11 @@
-﻿namespace Contracts.Models
+﻿using CsvHelper.Configuration.Attributes;
+
+namespace Contracts.Models
 {
     public class Joystic
     {
+        [Optional]
+        public int? id { get; set; } 
         public string time { get; set; }
         public string axis_1 { get; set; }
         public string axis_2 { get; set; }

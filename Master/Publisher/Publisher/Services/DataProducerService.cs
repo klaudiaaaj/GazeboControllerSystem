@@ -13,6 +13,7 @@ namespace Publisher.Services
         public IList<Joystic> GetJoysticData()
         {
             IList<Joystic> joysticData = new List<Joystic>();
+            IList<Joystic> joysticData2 = new List<Joystic>();
 
             //////Read the data
             using (var reader = new StreamReader(_sheetPath))
@@ -25,10 +26,14 @@ namespace Publisher.Services
                 using (var csv = new CsvReader(reader, config))
                 {
                     var joystickData = csv.GetRecords<Joystic>();
-                    joysticData = joystickData.ToList();
+                    foreach (var joystick in joystickData)
+                    {
+                        joysticData2.Add(joystick);
+                    }
+                    joysticData = joysticData.ToList();
                 }
             }
-            return joysticData;
+            return joysticData2;
         }
     }
 }

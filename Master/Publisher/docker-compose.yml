@@ -1,6 +1,6 @@
 version: '3'
 services:
-  subscriber:
+  rabbitmqsubscriber:
     build:
       context: .
       dockerfile: RabbitmqSubscriber/Dockerfile
@@ -18,6 +18,22 @@ services:
       - 8080:80
     depends_on:
       - rabbitmq
+    networks:
+      - mynetwork
+  restclient:
+    build:
+      context: .
+      dockerfile: RestClient/Dockerfile
+    ports:
+      - 8082:80
+    networks:
+      - mynetwork
+  azureservicebussubscriber:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriber/Dockerfile
+    ports:
+      - 8083:80
     networks:
       - mynetwork
 

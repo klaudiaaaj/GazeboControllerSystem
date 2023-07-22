@@ -8,14 +8,16 @@ namespace Publisher.Controllers
         public readonly IRabbitMqSender rabbitMqSender;
         public readonly IKaffkaSender kaffkaSender;
         public readonly IAzureServiceBusSender azureServiceBusSender;
-        public readonly IDataProducerService dataProducerService;   
+        public readonly IDataProducerService dataProducerService;
+        public readonly ISqLiteRepo sqLiteRepo;
 
-        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender, IDataProducerService dataProducerService)
+        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender, IDataProducerService dataProducerService, ISqLiteRepo sqLiteRepo)
         {
             this.rabbitMqSender = rabbitMqSender;
             this.kaffkaSender = kaffkaSender;
             this.azureServiceBusSender = azureServiceBusSender;
             this.dataProducerService = dataProducerService;
+            this.sqLiteRepo = sqLiteRepo;
         }
 
         [HttpGet("rabbitMq")]
@@ -44,6 +46,17 @@ namespace Publisher.Controllers
             azureServiceBusSender.Send(data);
 
             return Task.CompletedTask;
-        }   
+        }
+
+        [HttpGet("restProducer")]
+        public Task SendBtRestToDatabase()
+        {
+            var data = dataProducerService.GetJoysticData();
+            if (data.Count > 0)
+            {
+                sqLiteRepo.InsertAllJoystics(data);
+            }
+            return Task.CompletedTask;
+        }
     }
 }

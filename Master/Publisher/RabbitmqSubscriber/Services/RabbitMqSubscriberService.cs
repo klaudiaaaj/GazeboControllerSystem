@@ -1,10 +1,12 @@
-﻿using RabbitMQ.Client;
+﻿using Contracts.Models;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace RabbitmqSubscriber.Services
 {
-    public class RabbitMqSubscriberService : BackgroundService
+    public class RabbitMqSubscriberService : IRabbitMqSubscriberService
     {
         private readonly IConfiguration _configuration;
         private IConnection _connection;
@@ -13,6 +15,8 @@ namespace RabbitmqSubscriber.Services
         private string _queueName;
         private readonly ILogger<RabbitMqSubscriberService> _logger;
         private readonly RosContractor ros;
+        private readonly TaskCompletionSource<Joystic> _completionSource = new TaskCompletionSource<Joystic>();
+        private bool _messageReceived = false;
 
         public RabbitMqSubscriberService(IConfiguration configuration, ILogger<RabbitMqSubscriberService> logger)
         {
@@ -39,35 +43,47 @@ namespace RabbitmqSubscriber.Services
 
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShitdown;
         }
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+      
+        public async Task<Joystic> ExecuteAsyncSingle()
         {
-            stoppingToken.ThrowIfCancellationRequested();
-
             var consumer = new EventingBasicConsumer(_channel);
 
-            consumer.Received += (ModuleHandle, ea) =>
+            try
             {
-                var body = ea.Body;
-                var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
-                //  _eventProcessor.ProcessEvent(notificationMessage);
-                _logger.LogInformation("--> Event Received!", notificationMessage.ToString());
-            };
+                consumer.Received += (ModuleHandle, ea) =>
+                {
+                    if (!_messageReceived)
+                    {
+                        // Odczytywanie i deserializacja wiadomości
+                        var body = ea.Body;
+                        var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
+                        Joystic? joystic = JsonConvert.DeserializeObject<Joystic>(notificationMessage);
 
-            _channel.BasicConsume(queue: _queueName, autoAck: true, consumer: consumer);
+                        if (joystic != null)
+                        {
+                            _messageReceived = true;
+                            _completionSource.SetResult(joystic);
+                        }
+                        
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
+            }
 
-            return Task.CompletedTask;
-        }
-
-        public override void Dispose()
-        {
             if (_channel.IsOpen)
             {
                 _channel.Close();
                 _connection.Close();
             }
 
-            base.Dispose();
+            // Czekanie na wynik zadania i zwrócenie obiektu Joystic
+            return await _completionSource.Task; ;
         }
+      
         private void RabbitMQ_ConnectionShitdown(object sender, ShutdownEventArgs e)
         {
             Console.WriteLine("--> Connection Shutdown");
