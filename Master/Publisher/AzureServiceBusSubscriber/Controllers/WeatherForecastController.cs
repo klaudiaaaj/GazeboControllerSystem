@@ -1,6 +1,6 @@
-    using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace RabbitmqSubscriber.Controllers;
+namespace AzureServiceBusSubscriber.Controllers;
 
 [ApiController]
 [Route("[controller]")]

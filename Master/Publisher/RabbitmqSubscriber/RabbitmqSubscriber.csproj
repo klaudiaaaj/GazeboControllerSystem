@@ -14,5 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Publisher\Publisher.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
 </Project>

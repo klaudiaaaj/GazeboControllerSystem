@@ -9,7 +9,7 @@ using System.Text;
 namespace RabbitmqSubscriber.Controllers
 {
     [ApiController]
-    [Route("api/rabbitMq")]
+    [Route("api/rabbitMqSubscriber")]
     public class RabbitMqClientController : Controller
     {
         private readonly IConfiguration _configuration;
@@ -21,11 +21,13 @@ namespace RabbitmqSubscriber.Controllers
         public RabbitMqClientController(IConfiguration configuration)
         {
             _configuration = configuration;
+            var rabbitMQPortValue = _configuration["RabbitMQPort"];
+            var port = int.Parse(rabbitMQPortValue ?? "0");
 
             var test = _configuration["RabbitMQHost"];
             var test2 = _configuration["RabbitMQPort"];
             _queueName = "joystic-queue";
-            _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
+            _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = port };
 
             using var connection = _connectionFactory.CreateConnection();
             using var channel = connection.CreateModel();
@@ -33,7 +35,7 @@ namespace RabbitmqSubscriber.Controllers
         }
 
         [HttpGet("single")]
-        public async Task<IActionResult> GetSingleObjectById()
+        public IActionResult GetSingleObjectById()
         {
             try
             {

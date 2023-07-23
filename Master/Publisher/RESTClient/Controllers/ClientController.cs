@@ -2,6 +2,8 @@
 
 namespace RESTClient.cs.Controllers
 {
+    [ApiController]
+    [Route("api/RestClient")]
     public class ClientController : Controller
     {
         private readonly HttpClient _httpClient;
@@ -17,6 +19,23 @@ namespace RESTClient.cs.Controllers
         public async Task<IActionResult> GetData()
         {
             var response = await _httpClient.GetAsync("http://host.docker.internal:8080/Rest");
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                return Ok(data);
+            }
+            else
+            {
+                _logger.LogError("Error", response.ToString());
+
+                return StatusCode((int)response.StatusCode);
+            }
+        }
+
+        [HttpGet("restClient/{id}")]
+        public async Task<IActionResult> GetData(string id)
+        {
+            var response = await _httpClient.GetAsync("http://host.docker.internal:8080/RetGetById/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();

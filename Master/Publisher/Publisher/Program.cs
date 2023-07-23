@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "PUBLISHER");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

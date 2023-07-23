@@ -26,8 +26,6 @@ namespace Publisher.Services
 
             using var connection = _connectionFactory.CreateConnection();
             using var channel = connection.CreateModel();
-
-            //  _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
         }
 
         public Task Send(IList<Joystic> message)

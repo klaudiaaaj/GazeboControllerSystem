@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Messaging.ServiceBus;
 using Contracts.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace Publisher.Services
@@ -28,14 +29,16 @@ namespace Publisher.Services
         {
             try
             {
-                var list = message.Take(20); 
+                var list = message.Take(20);
 
                 using ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
 
                 for (int i = 1; i <= 29; i++)
                 {
                     // try adding a message to the batch
-                    if (!messageBatch.TryAddMessage(new ServiceBusMessage($"Message {message[i]}")))
+                    var message2 = String.Join(",", message[i].time, message[i].axis_1, message[i].axis_2, message[i].button_1, message[i].button_2, message[i].id.ToString());
+
+                    if (!messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes(message2))))
                     {
                         // if it is too large for the batch
                         throw new Exception($"The message {i} is too large to fit in the batch.");
@@ -49,7 +52,7 @@ namespace Publisher.Services
                 Console.WriteLine(ex);
             }
 
-            
+
             finally
             {
                 // Calling DisposeAsync on client types is required to ensure that network

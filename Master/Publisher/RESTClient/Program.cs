@@ -20,7 +20,7 @@ builder.Host.UseSerilog((ctx, lc) => lc
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello REST CLIENT!");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
