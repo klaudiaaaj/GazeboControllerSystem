@@ -25,17 +25,16 @@ namespace Publisher.Services
             sender = client.CreateSender(_configuration["Azure_QueueName"]);
         }
 
-        public async Task Send(IList<Joystic> message)
+        public async Task Send(IList<Joystic> message)  
         {
             try
             {
-                var list = message.Take(20);
+                var list = message.Take(50);
 
                 using ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
 
-                for (int i = 1; i <= 29; i++)
+                for (int i = 0; i < list.Count(); i++)
                 {
-                    // try adding a message to the batch
                     var message2 = String.Join(",", message[i].time, message[i].axis_1, message[i].axis_2, message[i].button_1, message[i].button_2, message[i].id.ToString());
 
                     if (!messageBatch.TryAddMessage(new ServiceBusMessage(Encoding.UTF8.GetBytes(message2))))
