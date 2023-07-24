@@ -1,5 +1,4 @@
-﻿using Azure.Messaging.ServiceBus;
-using AzureServiceBusSubscriber.Services;
+﻿using AzureServiceBusSubscriber.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ServiceBus;
 using System.Text;
@@ -8,12 +7,12 @@ namespace AzureServiceBusSubscriber
 {
 
     [ApiController]
-    [Route("api/asbClient")]
-    public class AzureServiceBusClientClass : Controller
+    [Route("api/asbClient/queue")]
+    public class AzureServiceBusClientQueue : Controller
     {
         private readonly IConfiguration _configuration;
 
-        public AzureServiceBusClientClass(IConfiguration configuration)
+        public AzureServiceBusClientQueue(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -64,10 +63,7 @@ namespace AzureServiceBusSubscriber
             try
             {
                 var queueClient = new QueueClient(_configuration["AzureConnectionString"], _configuration["Azure_QueueName"], ReceiveMode.PeekLock);
-                await using var serviceBusClient = new ServiceBusClient(_configuration["AzureConnectionString"]);
-                await using var receiver = serviceBusClient.CreateReceiver("bulk-send", "sub1");
 
-                var messages = await receiver.ReceiveMessagesAsync(200);
                 var messageHandlerOptions = new MessageHandlerOptions(async args => Console.WriteLine(args.Exception))
                 { MaxConcurrentCalls = 1, AutoComplete = true };
 

@@ -7,17 +7,19 @@ namespace Publisher.Controllers
     {
         public readonly IRabbitMqSender rabbitMqSender;
         public readonly IKaffkaSender kaffkaSender;
-        public readonly IAzureServiceBusSender azureServiceBusSender;
+        public readonly IAzureServiceBusSender azureServiceBusSenderQueue;
+        public readonly IAzureServiceBusSenderTopic azureServiceBusSenderTopic;
         public readonly IDataProducerService dataProducerService;
         public readonly ISqLiteRepo sqLiteRepo;
 
-        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender, IDataProducerService dataProducerService, ISqLiteRepo sqLiteRepo)
+        public CommunicationController(IRabbitMqSender rabbitMqSender, IKaffkaSender kaffkaSender, IAzureServiceBusSender azureServiceBusSender, IDataProducerService dataProducerService, ISqLiteRepo sqLiteRepo, IAzureServiceBusSenderTopic azureServiceBusSenderTopic)
         {
             this.rabbitMqSender = rabbitMqSender;
             this.kaffkaSender = kaffkaSender;
-            this.azureServiceBusSender = azureServiceBusSender;
+            this.azureServiceBusSenderQueue = azureServiceBusSender;
             this.dataProducerService = dataProducerService;
             this.sqLiteRepo = sqLiteRepo;
+            this.azureServiceBusSenderTopic = azureServiceBusSenderTopic;
         }
 
         [HttpGet("rabbitMq")]
@@ -39,11 +41,20 @@ namespace Publisher.Controllers
             return Task.CompletedTask;
         }
 
-        [HttpGet("azureServiceBus")]
+        [HttpGet("azureServiceBusQueue")]
         public Task SendDataByAzureServiceBus()
         {
             var data = dataProducerService.GetJoysticData();
-            azureServiceBusSender.Send(data);
+            azureServiceBusSenderQueue.Send(data);
+
+            return Task.CompletedTask;
+        }
+
+        [HttpGet("azureServiceBusTopic")]
+        public Task SendDataByAzureServiceBusTopic()
+        {
+            var data = dataProducerService.GetJoysticData();
+            azureServiceBusSenderTopic.Send(data);
 
             return Task.CompletedTask;
         }

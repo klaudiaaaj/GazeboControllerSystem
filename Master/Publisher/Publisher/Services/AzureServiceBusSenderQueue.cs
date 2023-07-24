@@ -6,14 +6,14 @@ using System.Text.Json;
 
 namespace Publisher.Services
 {
-    public class AzureServiceBusSender : IAzureServiceBusSender
+    public class AzureServiceBusSenderQueue : IAzureServiceBusSender
     {
         private string ConnectionString = ""; //hidden
         private readonly ServiceBusClient client;
         private readonly ServiceBusSender sender;
         private readonly IConfiguration _configuration;
 
-        public AzureServiceBusSender(IConfiguration configuration)
+        public AzureServiceBusSenderQueue(IConfiguration configuration)
         {
             _configuration = configuration;
             var clientOptions = new ServiceBusClientOptions()

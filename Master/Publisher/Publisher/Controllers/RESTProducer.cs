@@ -26,20 +26,32 @@ namespace Publisher.Controllers
         }
 
         [HttpGet("RetGetById/{id}")]
-        public IActionResult GetById(string id)
+        public IActionResult GetById(int id)
         {
-            var data = sqLiteRepo.GetJoysticById(int.Parse(id));
+            try
+            {
+                var test = sqLiteRepo.GetJoysticById(id);
+                return Ok(test);
 
-            return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpGet("RestGetAll")]
         public IActionResult GetAll()
         {
-
-           
-            var test = sqLiteRepo.GetAllJoystics();
-            return Ok(test);
+            try
+            {
+                var test = sqLiteRepo.GetAllJoystics();
+                return Ok(test);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

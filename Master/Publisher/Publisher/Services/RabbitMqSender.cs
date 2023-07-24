@@ -24,8 +24,8 @@ namespace Publisher.Services
             var test2 = _configuration["RabbitMQPort"];
             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
 
-            using var connection = _connectionFactory.CreateConnection();
-            using var channel = connection.CreateModel();
+            //using var connection = _connectionFactory.CreateConnection();
+           // using var channel = connection.CreateModel();
         }
 
         public Task Send(IList<Joystic> message)

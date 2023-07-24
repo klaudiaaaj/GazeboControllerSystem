@@ -16,7 +16,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IRabbitMqSender, RabbitMqSender>();
 builder.Services.AddScoped<IKaffkaSender, KaffkaSender>();
-builder.Services.AddScoped<IAzureServiceBusSender, AzureServiceBusSender>();
+builder.Services.AddScoped<IAzureServiceBusSender, AzureServiceBusSenderQueue>();
+builder.Services.AddScoped<IAzureServiceBusSenderTopic, AzureServiceBusSenderTopic>();
 builder.Services.AddScoped<IDataProducerService, DataProducerService>();
 builder.Services.AddSingleton<ISqLiteRepo, SqLiteRepo>();
 

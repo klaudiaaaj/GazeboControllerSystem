@@ -19,9 +19,7 @@ namespace Publisher.Services
         {
 
             SQLiteConnection sqlite_conn;
-            // Create a new database connection:
             sqlite_conn = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True; ");
-            // Open the connection:
             try
             {
                 sqlite_conn.Open();
@@ -65,7 +63,6 @@ namespace Publisher.Services
         public List<Joystic> GetAllJoystics()
         {
             List<Joystic> joystics = new List<Joystic>();
-
 
             string selectQuery = "SELECT * FROM Joystics";
             using (SQLiteCommand cmd = new SQLiteCommand(selectQuery, this.sqlite_conn))
@@ -158,8 +155,6 @@ namespace Publisher.Services
 
         public void InsertAllJoystics(IList<Joystic> joystics)
         {
-
-
             string insertQuery = "INSERT INTO Joystics (Time, Axis_1, Axis_2, Button_1, Button_2) VALUES (@Time, @Axis_1, @Axis_2, @Button_1, @Button_2)";
             using (SQLiteCommand cmd = new SQLiteCommand(insertQuery, this.sqlite_conn))
             {
@@ -178,8 +173,6 @@ namespace Publisher.Services
         }
         public Joystic GetJoysticById(int id)
         {
-
-
             string selectQuery = "SELECT * FROM Joystics WHERE ID = @Id";
             using (SQLiteCommand cmd = new SQLiteCommand(selectQuery, this.sqlite_conn))
             {
