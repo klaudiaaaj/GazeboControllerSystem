@@ -20,10 +20,7 @@ namespace Publisher.Services
         private void InitializeRabbitMQ()
 
         {
-            var test = _configuration["RabbitMQHost"];
-            var test2 = _configuration["RabbitMQPort"];
             _connectionFactory = new ConnectionFactory() { HostName = _configuration["RabbitMQHost"], Port = int.Parse(_configuration["RabbitMQPort"]) };
-
         }
 
         public Task Send(IList<Joystic> message)
@@ -49,7 +46,6 @@ namespace Publisher.Services
             Console.WriteLine(" Press [enter] to exit.");
 
             return Task.CompletedTask;
-
         }
     }
 }

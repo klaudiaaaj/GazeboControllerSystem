@@ -960,7 +960,30 @@ When partitioning is enabled in the Premium SKU, the amount of partitions is spe
  
  The Test will be performed on the standard Tier. 
  
-\section{Experiments}
+\subsection{RabbitMQ}
+RabbitMq is message broker which accepts and forwards messages.
+The messages are send through the Advanced Message Queuing Protocol(AMQP). Advanced Message Queuing Protocol is an protocol that that enables conforming client applications to communicate with conforming messaging middleware brokers. ref {https://www.rabbitmq.com/tutorials/amqp-concepts.html}
+
+The messages published by publisher are not directly transferred to the queue, they are transfered to the exchange, which is responsible for routing messages to different queue, using binding(link between a queue and an exchange) and routing keys. 
+
+\paragraph{Exchanges Types}
+Exchanges take message and route into zero or more queues, depending on the exchange type and bindings.
+\subparagraph{Direct exchange}
+Direct exchange 	- It uses the message routing key ( which is an message attribute added to the message header) to transport messages into the queue. If the message routing key does not match any binding key, the message is discard.
+\subparagraph{Default exchange}
+A default exchange is an direct exchange with no name, pre-declared by the broker.  It has one particular feature that makes it useful for simple applications: every queue created is automatically bound to it using a routing key that matches the queue name.
+For instance, if a queue is declared with the name "search-indexing-online," the AMQP 0-9-1 broker will automatically bind it to the default exchange using "search-indexing-online" as the routing key (also known as the binding key). As a result, any message published to the default exchange with the routing key "search-indexing-online" will be routed to the queue "search-indexing-online." 
+
+\subparagraph{Topic Exchange}
+It is similar to the direct exchange however topic exchange instead of using fixed routing key, it uses wildcards. The message is routed to one or many queues, basing on a matching between a message routing key and pattern. A routing pattern of “university.*.*.technology” only match routing keys where the first word is “university" and the fourth word is “technology”.
+
+\subparagraph{Fanout Exchange}
+Fanout Exchange routes message to all the queues bounded to it, ignoring the routing key. It is ideal for the broadcast routing of messages. The exemplary usage of this exchange is the system where the same messages should be catch by the mobile application and web application or group chats where messages are distrubibuted between participants. 
+
+\subparagraph{Header Exchange}
+Header exchange uses routing on multiple attributes that are more easily expressed as message header than as a routing key. It is similar to the topic exchange however it uses the header attribute instead of routing key, which is here ignored. Specific argument termed “x-match” indicates whether all headers must match or only one. The headers can be build not only with string but also with types such as integers or hashes. 
+ 
+\chapter{Experiments}
 The experiment section presents the description, exemplary implementation and the results of survey in examination various types of scenarios in communication between microservices. 
  Each experiment is aimed to found the advantages and disadvantages of using the selected communication pattern for a specific use case.
 \subsection{Experiment 1}
@@ -972,6 +995,12 @@ The experiment has been dividend into two kinds of
 The experiment was divided into two variants. 
 Variant A - The client receives the data individually, one request for each query
 Variant B - The customer receives all the data available to him in the system with one query
+
+\subsubsection{One data per request}
+\subparagraph{Rest API}
+\subparagraph{Azure Service Bus}
+\subparagraph{RabbitMq}
+\subparagraph{Rest API}
 %\chapter{[Subject of the thesis]}
 %
 %\begin{itemize}
