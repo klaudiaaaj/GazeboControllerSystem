@@ -20,8 +20,7 @@ namespace Publisher.Services
             {
                 TransportType = ServiceBusTransportType.AmqpWebSockets
             };
-            var tokenCredential = new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = "ab840be7-206b-432c-bd22-4c20fdc1b261" });
-            client = new ServiceBusClient(_configuration["AzureConnectionString"], tokenCredential);
+            client = new ServiceBusClient("Endpoint=sb://azure-service-bus-master.servicebus.windows.net/;SharedAccessKeyName=jmeter;SharedAccessKey=v0Y7610JrHUC1pCzCApZ8+0MRq4OTW9fC+ASbNK4WG0=;EntityPath=jmeter");
             sender = client.CreateSender(_configuration["Azure_QueueName"]);
         }
 

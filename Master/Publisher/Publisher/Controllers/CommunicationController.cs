@@ -3,6 +3,8 @@ using Publisher.Services;
 
 namespace Publisher.Controllers
 {
+    [ApiController]
+    [Route("api/publisher/technologies")]
     public class CommunicationController : Controller
     {
         public readonly IRabbitMqSender rabbitMqSender;

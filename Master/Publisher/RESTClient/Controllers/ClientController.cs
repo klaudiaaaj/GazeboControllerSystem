@@ -15,10 +15,10 @@ namespace RESTClient.cs.Controllers
             _logger = logger;
         }
 
-        [HttpGet("restClient")]
-        public async Task<IActionResult> GetData()
+        [HttpGet("restClient/all")]
+        public async Task<IActionResult> GetDataAll()
         {
-            var response = await _httpClient.GetAsync("http://host.docker.internal:8080/Rest");
+            var response = await _httpClient.GetAsync("http://host.docker.internal:8080/RestGetAll");
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();
@@ -33,18 +33,18 @@ namespace RESTClient.cs.Controllers
         }
 
         [HttpGet("restClient/{id}")]
-        public async Task<IActionResult> GetData(string id)
+        public async Task<IActionResult> GetDataById(string id)
         {
-            var response = await _httpClient.GetAsync("http://host.docker.internal:8080/RetGetById/{id}");
+            var response = await _httpClient.GetAsync($"http://host.docker.internal:8080/RetGetById/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();
-                return Ok(data);
+                _logger.LogInformation(data.ToString());
+                    return Ok(data);
             }
             else
             {
                 _logger.LogError("Error", response.ToString());
-
                 return StatusCode((int)response.StatusCode);
             }
         }

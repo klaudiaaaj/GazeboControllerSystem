@@ -20,7 +20,7 @@ namespace Publisher.Services
             {
                 TransportType = ServiceBusTransportType.AmqpWebSockets
             };
-            var tokenCredential = new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = "ab840be7-206b-432c-bd22-4c20fdc1b261" });
+         //   var tokenCredential = new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = "ab840be7-206b-432c-bd22-4c20fdc1b261" });
            // client = new ServiceBusClient(_configuration[", tokenCredential);
            // sender = client.CreateSender(_configuration["Azure_QueueName"]);
         }

@@ -73,6 +73,7 @@ namespace Publisher.Services
                     {
                         Joystic joystic = new Joystic()
                         {
+                            id = Convert.ToInt32(reader["ID"]),
                             time = reader["Time"].ToString(),
                             axis_1 = reader["Axis_1"].ToString(),
                             axis_2 = reader["Axis_2"].ToString(),
@@ -165,7 +166,6 @@ namespace Publisher.Services
                     cmd.Parameters.AddWithValue("@Axis_2", joystic.axis_2);
                     cmd.Parameters.AddWithValue("@Button_1", joystic.button_1);
                     cmd.Parameters.AddWithValue("@Button_2", joystic.button_2);
-
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
                 }
