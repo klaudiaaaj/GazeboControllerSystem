@@ -3,7 +3,8 @@ using Publisher.Services;
 
 namespace Publisher.Controllers
 {
-
+    [ApiController]
+    [Route("api/publisher/RESTClient")]
     public class RESTProducer : Controller
     {
         public readonly IDataProducerService dataProducerService;
@@ -17,7 +18,7 @@ namespace Publisher.Controllers
             _logger = logger;
         }
 
-        [HttpGet("RetGetById/{id}")]
+        [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
             try
@@ -35,7 +36,7 @@ namespace Publisher.Controllers
             }
         }
 
-        [HttpGet("RestGetAll")]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             try
