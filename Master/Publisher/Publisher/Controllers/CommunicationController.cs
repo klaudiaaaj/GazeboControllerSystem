@@ -4,7 +4,7 @@ using Publisher.Services;
 namespace Publisher.Controllers
 {
     [ApiController]
-    [Route("api/publisher/technologies")]
+    [Route("api/publisher/produce")]
     public class CommunicationController : Controller
     {
         public readonly IRabbitMqSender rabbitMqSender;
@@ -24,7 +24,7 @@ namespace Publisher.Controllers
             this.azureServiceBusSenderTopic = azureServiceBusSenderTopic;
         }
 
-        [HttpGet("rabbitMq")]
+        [HttpPost("rabbitMq")]
         public Task SendDataByRabbitMq()
         {
             var data = dataProducerService.GetJoysticData();
@@ -34,7 +34,7 @@ namespace Publisher.Controllers
         }
 
 
-        [HttpGet("kaffka")]
+        [HttpPost("kaffka")]
         public Task SendByKaffka()
         {
             var data = dataProducerService.GetJoysticData();
@@ -43,7 +43,7 @@ namespace Publisher.Controllers
             return Task.CompletedTask;
         }
 
-        [HttpGet("azureServiceBusQueue")]
+        [HttpPost("azureServiceBusQueue")]
         public Task SendDataByAzureServiceBus()
         {
             var data = dataProducerService.GetJoysticData();
@@ -52,7 +52,7 @@ namespace Publisher.Controllers
             return Task.CompletedTask;
         }
 
-        [HttpGet("azureServiceBusTopic")]
+        [HttpPost("azureServiceBusTopic")]
         public Task SendDataByAzureServiceBusTopic()
         {
             var data = dataProducerService.GetJoysticData();
@@ -61,7 +61,7 @@ namespace Publisher.Controllers
             return Task.CompletedTask;
         }
 
-        [HttpGet("restProducer")]
+        [HttpPost("database")]
         public Task SendBtRestToDatabase()
         {
             var data = dataProducerService.GetJoysticData();
