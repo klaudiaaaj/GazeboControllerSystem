@@ -928,9 +928,17 @@ A system in microservice architecture has been implemented, in order to simulate
 
 In this scenario, the goal is to fetch messages producted by the producer application from cliens applications. The whole system is implemented in the .NET 6 framework and each microservice is deployed as a single container on the docker local environment.
 \subsection{Architecture}
-The figure [][][][] provides an overview of data flow in whole the system. Once the data is collected and processed by the publisher application is it resend to the particular data stores. 
+The project is a microservices-based application developed in C\#, where each microservice is implemented as a separate ASP.NET Core application using .NET 6. The application is designed to provide a scalable and modular architecture, allowing independent development and deployment of each microservice. 
+
+Containers ordinarily get their own private network that is separate to the host stack. However in order to to use inter-container networking to perform communication between them, containers are allowed to share host's network stack. It means that they are allowed to access the host machine's localhost instead  of the container's host itself. 
+ 
+The figure BLABLA provides an overview of data flow in whole the system. Once the data is collected and processed by the publisher application, it is resend to the particular data stores. Then the data is catch by client applications and send via websocket to the virtual machine over the websocket. 
+
+Whole system is consisted of.......
+
 \subsection{Producer Application}
-Producer application is a microservice which is provided with a set of data, that is read and processed by application. In reference to the microservices principles, there is no option to share common database within subsystems. The aim of the application is to share data with microservices that need it to perform services for which they are responsible. Producer application implements the logic for sending processed data to RabbitMq broker, Azure Service Broker and save in the local database. 
+Producer application is a microservice which is provided with a set of data.  In reference to the microservices principles, there is no option to share common database within subsystems. The primary objective of the application is to process and services data efficiently with clients, using RESTful and asynchronous communication methods.  Producer dispatches data to designated message brokers: RabbitMq broker, Azure Service Broker and saves it in the local database.
+When RESTClient microservice request access to previously processed data Producer Application retrieving  data from the database and delivers it synchronously to the clients in response to HTTP requests.
 The producer functionalities are invoked by the HTTP Request to following endpoints: 
 \begin{description}[style=nextline, font=\normalfont\textbf]
   \item [HTTP POST] \textnormal{\texttt{host/api/publisher/produce/rabbitMq}}
@@ -947,17 +955,30 @@ The producer functionalities are invoked by the HTTP Request to following endpoi
 \end{description}
 Producer application has separate controller for REST Communication with REST Client microservice. 
 \begin{description}[style=nextline, font=\normalfont\textbf]
-  \item [HTTP GET \texttt{host/api/publisher/RESTClient/GetById/{id}}]
+  \item [HTTP GET \texttt{host/api/publisher/RESTDataProvider/GetById/{id}}]
   RestClient microservice asks the Producer to get single data by calling the following endpoint, including the objectId in the request params. The Producer retrieves the object from the database and returns it in the response to the request.
 
-  \item [HTTP GET \texttt{host/api/publisher/RESTClient/GetAll}]
+  \item [HTTP GET \texttt{host/api/publisher/RESTDataProvider/GetAll}]
   RestClient microservice requests the Producer to get all produced data by calling the following endpoint. The Producer retrieves all the objects from the database and returns them as a list in the response to the request.
 \end{description}
 
-\subsection{REST Client Microservice}
+Figure no [] provides the architecture schema of Publisher Web API. 
 
-Rest client is an application 
+\subsection{REST Client Microservice}
+Rest client API is an application is built on ASP.NET Core technology, to retrieve data from the Producer API using the HTTP protocol and REST API principles.
+The application serves as a data consumer and interacts with Producer API to obtain required data in synchronous manner. Rest Client API sends HTTP GET requests directly to the Producer API. Upon a successful response from the Producer API, the application receives the requested data.  In case of any error during the API call error, application handles the exception. 
+
+The Rest Client API has been designed to also establish communication with external clients over the HTTP protocol. To obtain the interaction, has been provided 2 endpoints:
+\begin{description}[style=nextline, font=\normalfont\textbf]
+  \item [HTTP GET \texttt{host/api/RestClient/all}]
+  It initializes the process of obtaining all produced data from Producer API.
+   \item [HTTP GET \texttt{host/api/RestClient/{id}}]
+     It initializes the process of obtaining single  data from Producer API.
+\end{description}
 \subsection{RabbitMq Client}
+Rest client API is an application is built on ASP.NET Core technology, to retrieve data from message broker using the AMQP protocol. 
+
+The application serves as a data consumer using the asynchronous communication. It does not interact with Producer API directly. Once the data is 
 \subsection{Azure Service Bus Client}
 \subsection{Architecture}
 

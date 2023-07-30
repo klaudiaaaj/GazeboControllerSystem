@@ -4,7 +4,7 @@ using Publisher.Services;
 namespace Publisher.Controllers
 {
     [ApiController]
-    [Route("api/publisher/RESTClient")]
+    [Route("api/publisher/RESTDataProvider")]
     public class RESTProducer : Controller
     {
         public readonly IDataProducerService dataProducerService;

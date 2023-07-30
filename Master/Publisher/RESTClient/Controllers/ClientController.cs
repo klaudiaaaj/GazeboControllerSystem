@@ -15,7 +15,7 @@ namespace RESTClient.cs.Controllers
             _logger = logger;
         }
 
-        [HttpGet("restClient/all")]
+        [HttpGet("all")]
         public async Task<IActionResult> GetDataAll()
         {
             var response = await _httpClient.GetAsync("http://host.docker.internal:8080/RestGetAll");
@@ -32,7 +32,7 @@ namespace RESTClient.cs.Controllers
             }
         }
 
-        [HttpGet("restClient/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetDataById(string id)
         {
             var response = await _httpClient.GetAsync($"http://host.docker.internal:8080/RetGetById/{id}");
