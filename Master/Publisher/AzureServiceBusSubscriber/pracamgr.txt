@@ -971,15 +971,45 @@ The application serves as a data consumer and interacts with Producer API to obt
 The Rest Client API has been designed to also establish communication with external clients over the HTTP protocol. To obtain the interaction, has been provided 2 endpoints:
 \begin{description}[style=nextline, font=\normalfont\textbf]
   \item [HTTP GET \texttt{host/api/RestClient/all}]
-  It initializes the process of obtaining all produced data from Producer API.
+  It initializes the process of obtaining all produced data from Producer API. As a response, application returns list of messages.
    \item [HTTP GET \texttt{host/api/RestClient/{id}}]
-     It initializes the process of obtaining single  data from Producer API.
+     It initializes the process of obtaining single  data from Producer API. As a response application returns single message.
 \end{description}
-\subsection{RabbitMq Client}
-Rest client API is an application is built on ASP.NET Core technology, to retrieve data from message broker using the AMQP protocol. 
+\subsection{RabbitMQ Consumer}
+RabbitMQ Consumer API is an application built on ASP.NET Core technology, to retrieve data produced by Producer Api using RabbitMQ message broker over the AMQP protocol. 
 
-The application serves as a data consumer using the asynchronous communication. It does not interact with Producer API directly. Once the data is 
-\subsection{Azure Service Bus Client}
+The application serves as consumer application, which is representation for the asynchronous communication. It does not interact with Producer API directly, but rather they communicate via an intermediary known as message broker. RabbitMQ message broker is deployed as a separate container on the local environment, using Docker image for RabbitMQ. The RabbitMQ Docker image is based on the official RabbitMQ image available on Docker Hub, and it is created using a Dockerfile. The Dockerfile defines the instructions to build the image, including the base image, environment setup, and any additional configurations needed for RabbitMQ.
+
+Once the RabbitMQ Consumer API is in the need of data, it makes call to the message broker with pre-configured binding to pick it up.  
+
+The  RabbitMQ Client API has been designed to establish communication with external clients over the HTTP protocol. To obtain the interaction, has been provided
+following endpoints: 
+
+\begin{description}[style=nextline, font=\normalfont\textbf]
+\item [HTTP GET \texttt{host/api/rabbitMQConsumer/single}]
+  It initializes the process of picking up single message from RabbitMQ broker. As a response application returns single message.
+\item [HTTP GET \texttt{host/api/rabbitMQConsumer/all}]
+It initializes the process of picking up all available messages from RabbitMQ broker. As a response, application returns list of messages.
+\end{description}
+\subsection{Azure Service Bus Consumer}
+Azure Service Bus Consumer API is an application built on ASP.NET Core technology, to retrieve data produced by Producer Api using Azure Service Bus cloud message broker over the AMQP protocol. 
+
+Azure Service Bus Consumer API substitute of RabbitMQ Consumer API in the context of messaging systems. It implements the connection to the cloud-based message as opposed to the traditional local deployment of RabbitMQ.
+
+Once the Azure Service Bus Consumer API is in the need of data, it makes call to the message broker with pre-configured binding to pick it up. 
+
+Referring to the possibilities offered by Azure, a solution for collecting data from both queues and topics was implemented. 
+
+
+The Azure Service Bus Consumer API has been designed to establish communication with external clients over the HTTP protocol. To obtain the interaction, has been provided
+following endpoints: 
+\begin{description}[style=nextline, font=\normalfont\textbf]
+\item [HTTP GET \texttt{host/api/rabbitMQConsumer/single}]
+  It initializes the process of picking up single message from RabbitMQ broker. As a response application returns single message.
+\item [HTTP GET \texttt{host/api/rabbitMQConsumer/all}]
+It initializes the process of picking up all available messages from RabbitMQ broker. As a response, application returns list of messages.
+\end{description}
+
 \subsection{Architecture}
 
 \chapter{Experiments}

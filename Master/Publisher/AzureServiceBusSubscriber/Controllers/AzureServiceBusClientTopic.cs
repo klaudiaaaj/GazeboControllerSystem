@@ -6,7 +6,7 @@ namespace AzureServiceBusSubscriber
 {
 
     [ApiController]
-    [Route("api/asbClient/topic")]
+    [Route("api/asbConsumer/topic")]
     public class AzureServiceBusClientTopic : Controller
     {
         private readonly IConfiguration _configuration;

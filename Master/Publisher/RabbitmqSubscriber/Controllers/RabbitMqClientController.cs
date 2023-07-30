@@ -9,7 +9,7 @@ using System.Text;
 namespace RabbitmqSubscriber.Controllers
 {
     [ApiController]
-    [Route("api/rabbitMqSubscriber")]
+    [Route("api/rabbitMqConsumer")]
     public class RabbitMqClientController : Controller
     {
         private readonly IConfiguration _configuration;

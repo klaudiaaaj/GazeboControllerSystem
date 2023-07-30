@@ -7,7 +7,7 @@ namespace AzureServiceBusSubscriber
 {
 
     [ApiController]
-    [Route("api/asbClient/queue")]
+    [Route("api/asbConsumer/queue")]
     public class AzureServiceBusClientQueue : Controller
     {
         private readonly IConfiguration _configuration;
