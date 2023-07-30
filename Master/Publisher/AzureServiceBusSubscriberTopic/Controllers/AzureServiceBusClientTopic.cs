@@ -6,14 +6,18 @@ namespace AzureServiceBusSubscriber
 {
 
     [ApiController]
-    [Route("api/asbClient/topic")]
+    [Route("api/asbConsumer/topic")]
     public class AzureServiceBusClientTopic : Controller
     {
         private readonly IConfiguration _configuration;
-
-        public AzureServiceBusClientTopic(IConfiguration configuration)
+        private readonly string _subscriptionName = string.Empty;
+        private readonly ILogger<AzureServiceBusClientTopic> _logger;
+        public AzureServiceBusClientTopic(IConfiguration configuration, ILogger<AzureServiceBusClientTopic> logger)
         {
             _configuration = configuration;
+            _subscriptionName = configuration["SUBSCRIPTION_NAME"];
+            _logger = logger;
+            _logger.LogInformation("Subscription", _subscriptionName);
         }
 
         [HttpGet("all")]
@@ -23,7 +27,7 @@ namespace AzureServiceBusSubscriber
             try
             {
                 await using var serviceBusClient = new ServiceBusClient("Endpoint=sb://azure-service-bus-master.servicebus.windows.net/;SharedAccessKeyName=reciver;SharedAccessKey=i5GWDQb4JKtKEc/uRYp7kjzFYzUtTCX3N+ASbCUo4bY=;EntityPath=bulk-send");
-                await using var receiver = serviceBusClient.CreateReceiver("bulk-send", "client1");
+                await using var receiver = serviceBusClient.CreateReceiver("bulk-send", _subscriptionName);
                 while (messagesResult.Count < 1000)
                 {
 
@@ -49,7 +53,7 @@ namespace AzureServiceBusSubscriber
             try
             {
                 await using var serviceBusClient = new ServiceBusClient("Endpoint=sb://azure-service-bus-master.servicebus.windows.net/;SharedAccessKeyName=reciver;SharedAccessKey=i5GWDQb4JKtKEc/uRYp7kjzFYzUtTCX3N+ASbCUo4bY=;EntityPath=bulk-send");
-                await using var receiver = serviceBusClient.CreateReceiver("bulk-send", "client1");
+                await using var receiver = serviceBusClient.CreateReceiver("bulk-send", _subscriptionName);
 
                 var messages = await receiver.ReceiveMessagesAsync(1, TimeSpan.FromMinutes(2));
                 if (messages != null)

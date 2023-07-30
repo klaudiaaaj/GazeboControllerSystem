@@ -28,16 +28,65 @@ services:
       - 8082:80
     networks:
       - mynetwork
-  azureservicebussubscriber:
+  azureservicebussubscriberQueue:
     build:
       context: .
-      dockerfile: AzureServiceBusSubscriber/Dockerfile
+      dockerfile: AzureServiceBusSubscriberQueue/Dockerfile
     ports:
       - 8083:80
     networks:
       - mynetwork
-
-  rabbitmq:
+azureservicebussubscriberTopic:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriberTopic/Dockerfile
+    ports:
+      - 8084:80
+    environment:
+      - SUBSCRIPTION_NAME=sub1
+    networks:
+      - mynetwork
+azureservicebussubscriberTopic2:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriberTopic/Dockerfile
+    ports:
+      - 8085:80
+    environment:
+      - SUBSCRIPTION_NAME=sub2
+    networks:
+      - mynetwork
+azureservicebussubscriberTopic3:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriberTopic/Dockerfile
+    ports:
+      - 8085:80
+    environment:
+      - SUBSCRIPTION_NAME=sub3
+    networks:
+      - mynetwork
+azureservicebussubscriberTopic4:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriberTopic/Dockerfile
+    ports:
+      - 8085:80
+    environment:
+      - SUBSCRIPTION_NAME=sub4
+    networks:
+      - mynetwork
+azureservicebussubscriberTopic5:
+    build:
+      context: .
+      dockerfile: AzureServiceBusSubscriberTopic/Dockerfile
+    ports:
+      - 8085:80
+    environment:
+      - SUBSCRIPTION_NAME=sub5
+    networks:
+      - mynetwork
+rabbitmq:
     image: rabbitmq:3-management
     ports:
       - 5672:5672
